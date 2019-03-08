@@ -1,4 +1,6 @@
 import os
+import pickle
+import tempfile
 
 import pytest
 
@@ -8,12 +10,13 @@ from dagstermill import DagstermillError, define_dagstermill_solid
 from dagstermill.examples.repository import (
     define_add_pipeline,
     define_error_pipeline,
-    define_hello_world_pipeline,
     define_hello_world_explicit_yield_pipeline,
+    define_hello_world_pipeline,
     define_hello_world_with_output_pipeline,
+    define_no_repo_registration_error_pipeline,
+    define_resource_pipeline,
     define_test_notebook_dag_pipeline,
     define_tutorial_pipeline,
-    define_no_repo_registration_error_pipeline,
 )
 
 
@@ -153,3 +156,37 @@ def test_hello_world_reexecution():
     finally:
         cleanup_result_notebook(result)
         cleanup_result_notebook(reexecution_result)
+
+
+def test_resources_notebook():
+    with tempfile.NamedTemporaryFile() as fd:
+        path = fd.name
+
+    try:
+        result = execute_pipeline(
+            define_resource_pipeline(), {'resources': {'list': {'config': path}}}
+        )
+        assert result.success
+
+        # Expect something like:
+        # ['e8d636: Opened', 'e8d636: Hello, solid!', '9d438e: Opened', '9d438e: Hello, notebook!',
+        #  '9d438e: Closed', 'e8d636: Closed']
+        with open(path, 'rb') as fd:
+            messages = pickle.load(fd)
+
+        messages = [message.split(': ') for message in messages]
+
+        resource_ids = [x[0] for x in messages]
+        assert len(set(resource_ids)) == 2
+        assert resource_ids[0] == resource_ids[1] == resource_ids[5]
+        assert resource_ids[2] == resource_ids[3] == resource_ids[4]
+
+        msgs = [x[1] for x in messages]
+        assert msgs[0] == msgs[2] == 'Opened'
+        assert msgs[4] == msgs[5] == 'Closed'
+        assert msgs[1] == 'Hello, solid!'
+        assert msgs[3] == 'Hello, notebook!'
+
+    finally:
+        if os.path.exists(path):
+            os.unlink(path)

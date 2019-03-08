@@ -167,12 +167,9 @@ class Manager:
                         'that are not pickling, then you must register a repository within '
                         'notebook by calling dm.register_repository(repository_def).'
                     )
-            with scoped_pipeline_context(
-                self.pipeline_def,
-                {'loggers': {'dagstermill': {}}},
-                RunConfig(run_id=run_id, mode=mode),
-            ) as pipeline_context:
-                self.context = DagstermillInNotebookExecutionContext(pipeline_context)
+            environment_dict['loggers'] = dict(environment_dict.get('loggers', {}), dagstermill={})
+            run_config = RunConfig(run_id=run_id, mode=mode)
+
         else:
             self.pipeline_def = self.repository_def.get_pipeline(pipeline_def_name)
             check.invariant(self.pipeline_def.has_solid_def(solid_def_name))
@@ -183,12 +180,11 @@ class Manager:
             )
 
             run_config = RunConfig(run_id, loggers=[logger], mode=mode)
-            # See block comment above referencing this issue
-            # See https://github.com/dagster-io/dagster/issues/796
-            with scoped_pipeline_context(
-                self.pipeline_def, environment_dict, run_config
-            ) as pipeline_context:
-                self.context = DagstermillInNotebookExecutionContext(pipeline_context)
+
+        with scoped_pipeline_context(
+            self.pipeline_def, environment_dict, run_config, create_resources=False
+        ) as pipeline_context:
+            self.context = DagstermillInNotebookExecutionContext(pipeline_context)
 
         return self.context
 

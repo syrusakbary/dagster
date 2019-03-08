@@ -83,7 +83,9 @@ def create_environment_config(pipeline, environment_dict=None, mode=None):
 
 
 @contextmanager
-def scoped_pipeline_context(pipeline_def, environment_dict, run_config, intermediates_manager=None):
+def scoped_pipeline_context(
+    pipeline_def, environment_dict, run_config, intermediates_manager=None, create_resources=True
+):
     check.inst_param(pipeline_def, 'pipeline_def', PipelineDefinition)
     check.dict_param(environment_dict, 'environment_dict', key_type=str)
     check.inst_param(run_config, 'run_config', RunConfig)
@@ -119,18 +121,29 @@ def scoped_pipeline_context(pipeline_def, environment_dict, run_config, intermed
         )
         log_manager = DagsterLogManager(run_id=run_config.run_id, logging_tags={}, loggers=loggers)
 
-        with _create_resources(
-            pipeline_def, environment_config, run_config, log_manager
-        ) as resources:
+        if create_resources:
+            with _create_resources(
+                pipeline_def, environment_config, run_config, log_manager
+            ) as resources:
 
+                yield construct_pipeline_execution_context(
+                    run_config=run_config,
+                    pipeline_def=pipeline_def,
+                    resources=resources,
+                    environment_config=environment_config,
+                    run_storage=run_storage,
+                    intermediates_manager=intermediates_manager,
+                    log_manager=log_manager,
+                )
+        else:
             yield construct_pipeline_execution_context(
-                run_config,
-                pipeline_def,
-                resources,
-                environment_config,
-                run_storage,
-                intermediates_manager,
-                log_manager,
+                run_config=run_config,
+                pipeline_def=pipeline_def,
+                resources=ResourcesBuilder({}),
+                environment_config=environment_config,
+                run_storage=run_storage,
+                intermediates_manager=intermediates_manager,
+                log_manager=log_manager,
             )
 
     except DagsterError as dagster_error:
@@ -164,7 +177,7 @@ def construct_pipeline_execution_context(
 ):
     check.inst_param(run_config, 'run_config', RunConfig)
     check.inst_param(pipeline_def, 'pipeline', PipelineDefinition)
-    check.opt_inst_param(resources, 'resources', ResourcesBuilder)
+    check.inst_param(resources, 'resources', ResourcesBuilder)
     check.inst_param(environment_config, 'environment_config', EnvironmentConfig)
     check.inst_param(run_storage, 'run_storage', RunStorage)
     check.inst_param(intermediates_manager, 'intermediates_manager', IntermediatesManager)
