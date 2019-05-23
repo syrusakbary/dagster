@@ -38,7 +38,12 @@ solid_throw_config = Field(
 )
 
 
-@solid(name='emit_num', outputs=[OutputDefinition(Int)], config_field=solid_throw_config)
+@solid(
+    name='emit_num',
+    outputs=[OutputDefinition(Int)],
+    config_field=solid_throw_config,
+    resources={'errorable_resource'},
+)
 def emit_num(context):
     if context.solid_config['throw_in_solid']:
         raise Exception('throwing from in the solid')

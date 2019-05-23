@@ -4,16 +4,15 @@ import subprocess
 import pandas as pd
 import pytest
 
+from dagster import execute_pipeline
+from dagster.utils import load_yaml_from_globs, script_relative_path
+from dagster_examples.event_pipeline_demo.pipelines import define_event_ingest_pipeline
+
 # another py2/3 difference
 try:
     import unittest.mock as mock
 except ImportError:
     import mock
-
-
-from dagster import execute_pipeline
-from dagster.utils import load_yaml_from_globs, script_relative_path
-from dagster_examples.event_pipeline_demo.pipelines import define_event_ingest_pipeline
 
 
 def create_mock_connector(*_args, **_kwargs):

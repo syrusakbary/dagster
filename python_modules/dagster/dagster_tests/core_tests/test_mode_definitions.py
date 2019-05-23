@@ -207,7 +207,7 @@ def test_mode_with_resource_deps():
         == 'Resource "a" is required by solid requires_a, but is not provided by mode "default"'
     )
 
-    @solid
+    @solid(resources={'a'})
     def no_deps(context):
         called['count'] += 1
         assert context.resources.a == 1

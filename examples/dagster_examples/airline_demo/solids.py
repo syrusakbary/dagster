@@ -126,6 +126,7 @@ def sql_solid(name, select_statement, materialization_strategy, table_name=None,
         compute_fn=compute_fn,
         description=description,
         metadata={'kind': 'sql', 'sql': sql_statement},
+        resources={'db_info'},
     )
 
 
@@ -152,6 +153,7 @@ def rename_spark_dataframe_columns(data_frame, fn):
     name='ingest_csv_to_spark',
     inputs=[InputDefinition('input_csv_file', Bytes)],
     outputs=[OutputDefinition(SparkDataFrameType)],
+    resources={'tempfile', 'spark'},
 )
 def ingest_csv_to_spark(context, input_csv_file):
     tf = context.resources.tempfile.tempfile()
@@ -183,6 +185,7 @@ def ingest_csv_to_spark(context, input_csv_file):
     ],
     config_field=Field(String, description='Prefix to append.'),
     outputs=[OutputDefinition(SparkDataFrameType)],
+    resources={'spark'},  # should infer from types?
 )
 def prefix_column_names(context, data_frame):
     return rename_spark_dataframe_columns(
@@ -198,6 +201,7 @@ def prefix_column_names(context, data_frame):
         )
     ],
     outputs=[OutputDefinition(SparkDataFrameType)],
+    resources={'spark'},  # should infer from types?
 )
 def canonicalize_column_names(_context, data_frame):
     return rename_spark_dataframe_columns(data_frame, lambda c: c.lower())
@@ -223,6 +227,7 @@ def replace_values_spark(data_frame, old, new):
         )
     ],
     outputs=[OutputDefinition(SparkDataFrameType)],
+    resources={'spark'},  # should infer from types?
 )
 def normalize_weather_na_values(_context, data_frame):
     return replace_values_spark(data_frame, 'M', None)
@@ -239,6 +244,7 @@ def normalize_weather_na_values(_context, data_frame):
     ],
     outputs=[OutputDefinition(SparkDataFrameType)],
     config_field=Field(Dict(fields={'table_name': Field(String, description='')})),
+    resources={'spark'},  # should infer from types?
 )
 def load_data_to_database_from_spark(context, data_frame):
     context.resources.db_info.load_table(data_frame, context.solid_config['table_name'])
@@ -263,6 +269,7 @@ def load_data_to_database_from_spark(context, data_frame):
             # description='A pyspark DataFrame containing a subsample of the input rows.',
         )
     ],
+    resources={'spark'},  # should infer from types?
 )
 def subsample_spark_dataset(context, data_frame):
     return data_frame.sample(False, context.solid_config['subsample_pct'] / 100.0)
@@ -293,6 +300,7 @@ def subsample_spark_dataset(context, data_frame):
             }
         )
     ),
+    resources={'spark'},  # should infer from types?
 )
 def join_spark_data_frames(context, left_data_frame, right_data_frame):
     return left_data_frame.join(
@@ -321,6 +329,7 @@ def join_spark_data_frames(context, left_data_frame, right_data_frame):
             description='A pyspark DataFrame containing the union of the input data frames.',
         )
     ],
+    resources={'spark'},  # should infer from types?
 )
 def union_spark_data_frames(_context, left_data_frame, right_data_frame):
     return left_data_frame.union(right_data_frame)

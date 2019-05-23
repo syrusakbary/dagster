@@ -51,7 +51,7 @@ def create_test_pipeline_execution_context(
     return construct_pipeline_execution_context(
         run_config=run_config,
         pipeline_def=pipeline_def,
-        resources=resources,
+        resources_builder=resources,
         environment_config=environment_config,
         run_storage=InMemoryRunStorage(),
         intermediates_manager=InMemoryIntermediatesManager(),

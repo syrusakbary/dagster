@@ -23,7 +23,11 @@ def parseNeighbors(urls):
     return parts[0], parts[1]
 
 
-@solid(inputs=[InputDefinition('pagerank_data', Path)], outputs=[OutputDefinition(SparkRDD)])
+@solid(
+    inputs=[InputDefinition('pagerank_data', Path)],
+    outputs=[OutputDefinition(SparkRDD)],
+    resources={'spark'},
+)
 def parse_pagerank_data(context, pagerank_data):
     lines = context.resources.spark.read.text(pagerank_data).rdd.map(lambda r: r[0])
     return lines.map(parseNeighbors)
