@@ -4,7 +4,13 @@ import subprocess
 import pandas as pd
 import pytest
 
-from dagster import execute_pipeline
+from dagster import (
+    execute_pipeline,
+    RunConfig,
+    MultiprocessExecutorConfig,
+    RunStorageMode,
+    ExecutionTargetHandle,
+)
 
 # another py2/3 difference
 try:
@@ -68,7 +74,16 @@ def test_event_pipeline(snowflake_connect):
                 '../../dagster_examples/event_pipeline_demo/environments/default.yml'
             )
         )
-        result_pipeline = execute_pipeline(define_event_ingest_pipeline(), config)
+        result_pipeline = execute_pipeline(
+            define_event_ingest_pipeline(),
+            config,
+            RunConfig(
+                executor_config=MultiprocessExecutorConfig(
+                    ExecutionTargetHandle.for_pipeline_fn(define_event_ingest_pipeline)
+                ),
+                storage_mode=RunStorageMode.FILESYSTEM,
+            ),
+        )
         assert result_pipeline.success
 
         # We're not testing Snowflake loads here, so at least test that we called the connect

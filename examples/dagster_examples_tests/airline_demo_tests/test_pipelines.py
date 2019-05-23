@@ -3,7 +3,13 @@ import os
 # pylint: disable=unused-argument
 import pytest
 
-from dagster import execute_pipeline, RunConfig
+from dagster import (
+    execute_pipeline,
+    RunConfig,
+    MultiprocessExecutorConfig,
+    RunStorageMode,
+    ExecutionTargetHandle,
+)
 
 from dagster.utils import load_yaml_from_globs, script_relative_path
 
@@ -38,7 +44,13 @@ def test_airline_pipeline_0_ingest(docker_compose_db):
     result_ingest = execute_pipeline(
         define_airline_demo_ingest_pipeline(),
         ingest_config_object,
-        run_config=RunConfig(mode='local'),
+        run_config=RunConfig(
+            mode='local',
+            executor_config=MultiprocessExecutorConfig(
+                ExecutionTargetHandle.for_pipeline_fn(define_airline_demo_ingest_pipeline)
+            ),
+            storage_mode=RunStorageMode.FILESYSTEM,
+        ),
     )
 
     assert result_ingest.success
@@ -59,7 +71,13 @@ def test_airline_pipeline_1_warehouse(docker_compose_db):
     result_warehouse = execute_pipeline(
         define_airline_demo_warehouse_pipeline(),
         warehouse_config_object,
-        run_config=RunConfig(mode='local'),
+        run_config=RunConfig(
+            mode='local',
+            executor_config=MultiprocessExecutorConfig(
+                ExecutionTargetHandle.for_pipeline_fn(define_airline_demo_warehouse_pipeline)
+            ),
+            storage_mode=RunStorageMode.FILESYSTEM,
+        ),
     )
     assert result_warehouse.success
 
@@ -77,7 +95,16 @@ def test_airline_pipeline_s3_0_ingest(docker_compose_db):
         ),
     )
 
-    result_ingest = execute_pipeline(define_airline_demo_ingest_pipeline(), ingest_config_object)
+    result_ingest = execute_pipeline(
+        define_airline_demo_ingest_pipeline(),
+        ingest_config_object,
+        run_config=RunConfig(
+            executor_config=MultiprocessExecutorConfig(
+                ExecutionTargetHandle.for_pipeline_fn(define_airline_demo_warehouse_pipeline)
+            ),
+            storage_mode=RunStorageMode.FILESYSTEM,
+        ),
+    )
 
     assert result_ingest.success
 
@@ -93,7 +120,14 @@ def test_airline_pipeline_s3_1_warehouse(docker_compose_db):
     )
 
     result_warehouse = execute_pipeline(
-        define_airline_demo_warehouse_pipeline(), warehouse_config_object
+        define_airline_demo_warehouse_pipeline(),
+        warehouse_config_object,
+        run_config=RunConfig(
+            executor_config=MultiprocessExecutorConfig(
+                ExecutionTargetHandle.for_pipeline_fn(define_airline_demo_warehouse_pipeline)
+            ),
+            storage_mode=RunStorageMode.FILESYSTEM,
+        ),
     )
     assert result_warehouse.success
 
