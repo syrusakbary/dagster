@@ -69,6 +69,7 @@ def define_cloud_store_resource():
 @solid(
     inputs=[InputDefinition('num_one', Int), InputDefinition('num_two', Int)],
     outputs=[OutputDefinition(Int)],
+    resources={'store'},
 )
 def add_ints(context, num_one, num_two):
     sum_ints = num_one + num_two

@@ -5,6 +5,8 @@ import pandas as pd
 import pytest
 
 from dagster import execute_pipeline
+from dagster.utils import load_yaml_from_globs, script_relative_path
+from dagster_examples.event_pipeline_demo.pipelines import define_event_ingest_pipeline
 
 # another py2/3 difference
 try:
@@ -12,9 +14,6 @@ try:
 except ImportError:
     import mock
 
-from dagster.utils import load_yaml_from_globs, script_relative_path
-
-from dagster_examples.event_pipeline_demo.pipelines import define_event_ingest_pipeline
 
 spark = pytest.mark.spark
 '''Tests that require Spark.'''

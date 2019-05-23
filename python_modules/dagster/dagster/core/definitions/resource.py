@@ -1,9 +1,17 @@
+import inspect
+from contextlib import contextmanager
 from collections import namedtuple
 
-from dagster import check
+from contextlib2 import ExitStack
 
+from dagster import check
 from dagster.core.types import Field, String
 from dagster.core.types.field_utils import check_user_facing_opt_field_param
+from dagster.core.errors import (
+    DagsterResourceFunctionError,
+    DagsterUserCodeExecutionError,
+    user_code_error_boundary,
+)
 
 
 class ResourceDefinition(object):
@@ -56,13 +64,34 @@ def resource(config_field=None, description=None):
     return _wrap
 
 
-class ResourcesBuilder(namedtuple('ResourcesBuilder', 'src')):
-    def __new__(cls, src):
-        return super(ResourcesBuilder, cls).__new__(cls, src)
+class ResourcesBuilder:
+    def __init__(self, resource_fn_map, exit_stack):
+        self._resource_fn_map = check.dict_param(resource_fn_map, 'resource_fn_map')
+        self._exit_stack = check.inst_param(exit_stack, 'exit_stack', ExitStack)
+        self._resource_instances = dict()
 
-    def build(self, mapper_fn=None, resource_deps=None):
-        '''We dynamically create a type that has the resource keys as properties, to enable dotting into
-        the resources from a context.
+    def _get_resource(self, resource_name):
+        check.str_param(resource_name, 'resource_name')
+        if resource_name in self._resource_instances:
+            return self._resource_instances[resource_name]
+
+        user_fn = self._resource_fn_map[resource_name]
+        print('XXXXX making', resource_name)
+        resource_obj = self._exit_stack.enter_context(
+            user_code_context_manager(
+                user_fn,
+                DagsterResourceFunctionError,
+                'Error executing resource_fn on ResourceDefinition {name}'.format(
+                    name=resource_name
+                ),
+            )
+        )
+        self._resource_instances[resource_name] = resource_obj
+        return resource_obj
+
+    def build(self, mapper_fn, resource_deps):
+        '''We dynamically create a type that has the resource keys as properties,
+        to enable dotting into the resources from a context.
 
         For example, given:
 
@@ -70,10 +99,59 @@ class ResourcesBuilder(namedtuple('ResourcesBuilder', 'src')):
 
         then this will create the type Resource(namedtuple('foo bar'))
 
-        and then binds the specified resources into an instance of this object, which can be consumed
-        as, e.g., context.resources.foo.
+        and then binds the specified resources into an instance of this object,
+        which can be consumed as, e.g., context.resources.foo.
         '''
-        src = mapper_fn(self.src, resource_deps) if (mapper_fn and resource_deps) else self.src
+        check.callable_param(mapper_fn, 'mapper_fn')
+        check.set_param(resource_deps, 'resource_deps', of_type=str)
 
-        resource_type = namedtuple('Resources', list(src.keys()))
-        return resource_type(**src)
+        resource_names = list(self._resource_fn_map.keys())
+        resource_map = mapper_fn(resource_names, resource_deps)
+
+        resources = {
+            mapped_name: self._get_resource(origin_name)
+            for mapped_name, origin_name in resource_map.items()
+        }
+        print(resources, resource_map)
+        resource_type = namedtuple('Resources', list(resources.keys()))
+        return resource_type(**resources)
+
+
+@contextmanager
+def user_code_context_manager(user_fn, error_cls, msg):
+    '''Wraps the output of a user provided function that may yield or return a value and
+    returns a generator that asserts it only yields a single value.
+    '''
+    check.callable_param(user_fn, 'user_fn')
+    check.subclass_param(error_cls, 'error_cls', DagsterUserCodeExecutionError)
+
+    with user_code_error_boundary(error_cls, msg):
+        thing_or_gen = user_fn()
+        gen = _ensure_gen(thing_or_gen)
+
+        try:
+            thing = next(gen)
+        except StopIteration:
+            check.failed('Must yield one item. You did not yield anything.')
+
+        yield thing
+
+        stopped = False
+
+        try:
+            next(gen)
+        except StopIteration:
+            stopped = True
+
+        check.invariant(stopped, 'Must yield one item. Yielded more than one item')
+
+
+def _ensure_gen(thing_or_gen):
+    if not inspect.isgenerator(thing_or_gen):
+
+        def _gen_thing():
+            yield thing_or_gen
+
+        return _gen_thing()
+
+    return thing_or_gen

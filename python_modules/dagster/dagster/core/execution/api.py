@@ -171,7 +171,7 @@ def execute_pipeline(pipeline, environment_dict=None, run_config=None):
     check.inst_param(pipeline, 'pipeline', PipelineDefinition)
     environment_dict = check.opt_dict_param(environment_dict, 'environment_dict')
     run_config = check_run_config_param(run_config, pipeline)
-
+    print('YYXYXYXYXY execute pipeline')
     with scoped_pipeline_context(pipeline, environment_dict, run_config) as pipeline_context:
         event_list = list(_execute_pipeline_iterator(pipeline_context))
 

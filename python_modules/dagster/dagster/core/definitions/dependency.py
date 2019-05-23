@@ -49,8 +49,8 @@ class SolidInstance(namedtuple('Solid', 'name alias resource_mapper_fn')):
         return super(cls, SolidInstance).__new__(cls, name, alias, resource_mapper_fn)
 
     @staticmethod
-    def default_resource_mapper_fn(resources, resource_deps):
-        return {r: resources.get(r) for r in resource_deps}
+    def default_resource_mapper_fn(_resource_names, resource_deps):
+        return {r: r for r in resource_deps}
 
 
 class Solid(object):

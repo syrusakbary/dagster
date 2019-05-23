@@ -126,6 +126,7 @@ def sql_solid(name, select_statement, materialization_strategy, table_name=None,
         compute_fn=compute_fn,
         description=description,
         metadata={'kind': 'sql', 'sql': sql_statement},
+        resources={'db_info'},
     )
 
 
@@ -152,6 +153,7 @@ def rename_spark_dataframe_columns(data_frame, fn):
     name='ingest_csv_to_spark',
     inputs=[InputDefinition('input_csv_file', Bytes)],
     outputs=[OutputDefinition(SparkDataFrameType)],
+    resources={'tempfile', 'spark'},
 )
 def ingest_csv_to_spark(context, input_csv_file):
     tf = context.resources.tempfile.tempfile()

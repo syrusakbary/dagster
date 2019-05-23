@@ -1,5 +1,5 @@
 from contextlib import contextmanager
-import inspect
+
 import sys
 import time
 
@@ -9,13 +9,7 @@ from dagster import check
 from dagster.core.definitions import PipelineDefinition, create_environment_type
 from dagster.core.definitions.mode import ModeDefinition
 from dagster.core.definitions.resource import ResourcesBuilder
-from dagster.core.errors import (
-    DagsterError,
-    DagsterInvariantViolationError,
-    DagsterUserCodeExecutionError,
-    DagsterResourceFunctionError,
-    user_code_error_boundary,
-)
+from dagster.core.errors import DagsterError, DagsterInvariantViolationError
 from dagster.core.events import DagsterEvent, PipelineInitFailureData
 from dagster.core.events.log import construct_event_logger
 from dagster.core.intermediates_manager import (
@@ -192,7 +186,7 @@ def scoped_pipeline_context(pipeline_def, environment_dict, run_config, intermed
 def construct_pipeline_execution_context(
     run_config,
     pipeline_def,
-    resources,
+    resources_builder,
     environment_config,
     run_storage,
     intermediates_manager,
@@ -200,7 +194,7 @@ def construct_pipeline_execution_context(
 ):
     check.inst_param(run_config, 'run_config', RunConfig)
     check.inst_param(pipeline_def, 'pipeline', PipelineDefinition)
-    check.opt_inst_param(resources, 'resources', ResourcesBuilder)
+    check.opt_inst_param(resources_builder, 'resources_builder', ResourcesBuilder)
     check.inst_param(environment_config, 'environment_config', EnvironmentConfig)
     check.inst_param(run_storage, 'run_storage', RunStorage)
     check.inst_param(intermediates_manager, 'intermediates_manager', IntermediatesManager)
@@ -213,7 +207,7 @@ def construct_pipeline_execution_context(
         SystemPipelineExecutionContextData(
             pipeline_def=pipeline_def,
             run_config=run_config,
-            resources=resources,
+            resources_builder=resources_builder,
             environment_config=environment_config,
             run_storage=run_storage,
             intermediates_manager=intermediates_manager,
@@ -225,7 +219,7 @@ def construct_pipeline_execution_context(
 
 @contextmanager
 def _create_resources(pipeline_def, environment_config, run_config, log_manager):
-    resources = {}
+    resource_fn_map = {}
 
     mode_definition = pipeline_def.get_mode_definition(run_config.mode)
     # See https://bit.ly/2zIXyqw
@@ -242,18 +236,8 @@ def _create_resources(pipeline_def, environment_config, run_config, log_manager)
                 log_manager,
             )
 
-            resource_obj = stack.enter_context(
-                user_code_context_manager(
-                    user_fn,
-                    DagsterResourceFunctionError,
-                    'Error executing resource_fn on ResourceDefinition {name}'.format(
-                        name=resource_name
-                    ),
-                )
-            )
-
-            resources[resource_name] = resource_obj
-        yield ResourcesBuilder(resources)
+            resource_fn_map[resource_name] = user_fn
+        yield ResourcesBuilder(resource_fn_map, stack)
 
 
 def _create_resource_fn_lambda(pipeline_def, resource_def, resource_config, run_id, log_manager):
@@ -405,46 +389,6 @@ def _create_context_free_log_manager(run_config, pipeline_def):
         loggers += run_config.loggers
 
     return DagsterLogManager(run_config.run_id, get_logging_tags(run_config, pipeline_def), loggers)
-
-
-def _ensure_gen(thing_or_gen):
-    if not inspect.isgenerator(thing_or_gen):
-
-        def _gen_thing():
-            yield thing_or_gen
-
-        return _gen_thing()
-
-    return thing_or_gen
-
-
-@contextmanager
-def user_code_context_manager(user_fn, error_cls, msg):
-    '''Wraps the output of a user provided function that may yield or return a value and
-    returns a generator that asserts it only yields a single value.
-    '''
-    check.callable_param(user_fn, 'user_fn')
-    check.subclass_param(error_cls, 'error_cls', DagsterUserCodeExecutionError)
-
-    with user_code_error_boundary(error_cls, msg):
-        thing_or_gen = user_fn()
-        gen = _ensure_gen(thing_or_gen)
-
-        try:
-            thing = next(gen)
-        except StopIteration:
-            check.failed('Must yield one item. You did not yield anything.')
-
-        yield thing
-
-        stopped = False
-
-        try:
-            next(gen)
-        except StopIteration:
-            stopped = True
-
-        check.invariant(stopped, 'Must yield one item. Yielded more than one item')
 
 
 def get_logging_tags(run_config, pipeline):

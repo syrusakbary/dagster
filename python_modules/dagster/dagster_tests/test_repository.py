@@ -57,7 +57,7 @@ def define_multi_mode_with_resources_pipeline():
             + init_context.resource_config['num_two']
         )
 
-    @solid
+    @solid(resources={'op'})
     def apply_to_three(context):
         return context.resources.op(3)
 
