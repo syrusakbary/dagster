@@ -13,7 +13,7 @@ from graphql.error.base import GraphQLError
 from graphql.execution.executors.gevent import GeventExecutor as Executor
 from nbconvert import HTMLExporter
 
-from dagster import check, seven
+from dagster import check, seven, ExecutionTargetHandle
 from dagster.utils.log import get_stack_trace_array
 from dagster_graphql.schema import create_schema
 
@@ -22,6 +22,7 @@ from dagster_graphql.implementation.pipeline_execution_manager import (
     MultiprocessingExecutionManager,
     SynchronousExecutionManager,
 )
+from dagster_graphql.implementation.pipeline_run_storage import PipelineRunStorage
 from .subscription_server import DagsterSubscriptionServer
 from .templates.playground import TEMPLATE as PLAYGROUND_TEMPLATE
 from .version import __version__
@@ -89,10 +90,10 @@ make rebuild_dagit</pre>'''
         return text, 500
 
 
-def notebook_view():
+def notebook_view(path=None):
     # This currently provides open access to your file system - the very least we can
     # do is limit it to notebook files until we create a more permanent solution.
-    path = request.args.get('path')
+    path = path if path is not None else request.args.get('path')
     if not path.endswith(".ipynb"):
         return "Invalid Path", 400
 
@@ -105,7 +106,11 @@ def notebook_view():
         return "<style>" + resources['inlining']['css'][0] + "</style>" + body, 200
 
 
-def create_app(handle, pipeline_runs, use_synchronous_execution_manager=False):
+def create_app(handle, pipeline_run_storage, use_synchronous_execution_manager=False):
+    check.inst_param(handle, 'handle', ExecutionTargetHandle)
+    check.inst_param(pipeline_run_storage, 'pipeline_run_storage', PipelineRunStorage)
+    check.bool_param(use_synchronous_execution_manager, 'use_synchronous_execution_manager')
+
     app = Flask('dagster-ui')
     sockets = Sockets(app)
     app.app_protocol = lambda environ_path_info: 'graphql-ws'
@@ -119,7 +124,7 @@ def create_app(handle, pipeline_runs, use_synchronous_execution_manager=False):
         execution_manager = MultiprocessingExecutionManager()
     context = DagsterGraphQLContext(
         handle=handle,
-        pipeline_runs=pipeline_runs,
+        pipeline_runs=pipeline_run_storage,
         execution_manager=execution_manager,
         version=__version__,
     )
