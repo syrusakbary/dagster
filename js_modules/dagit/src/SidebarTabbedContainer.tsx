@@ -46,9 +46,6 @@ export default class SidebarTabbedContainer extends React.Component<
     SidebarTabbedContainerPipelineFragment: gql`
       fragment SidebarTabbedContainerPipelineFragment on Pipeline {
         name
-        environmentType {
-          name
-        }
         ...SidebarPipelineInfoFragment
       }
 
