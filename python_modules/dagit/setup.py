@@ -80,7 +80,10 @@ def _do_setup(name='dagit'):
             'watchdog>=0.8.3',
             # notebooks support
             'nbconvert>=5.4.0',
+            # temp for debugging
+            'mock>=2.0.0',
         ],
+        tests_require=['mock==2.0.*'],
         scripts=["bin/dagit"],
         entry_points={"console_scripts": ['dagit-cli = dagit.cli:main']},
     )
