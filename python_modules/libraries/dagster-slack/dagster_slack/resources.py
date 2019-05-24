@@ -1,4 +1,4 @@
-from slackclient import SlackClient
+from slack import WebClient
 
 from dagster import resource, seven, Dict, Field, String
 
@@ -6,7 +6,7 @@ from dagster import resource, seven, Dict, Field, String
 class SlackConnection:
     def __init__(self, token):
         self.token = token
-        self.sc = SlackClient(self.token)
+        self.sc = WebClient(self.token)
 
         class _Chat:
             @classmethod
@@ -30,12 +30,12 @@ class SlackConnection:
                     'icon_url': icon_url,
                     'attachments': seven.json.dumps(attachments),
                 }
-                return self.sc.api_call('chat.postMessage', **api_params)
+                return self.sc.api_call('chat.postMessage', params=api_params)
 
         self.chat = _Chat
 
-    def api_call(self, method, timeout=None, **kwargs):
-        return self.sc.api_call(method, timeout, **kwargs)
+    def api_call(self, method, params):
+        return self.sc.api_call(method, params=params)
 
 
 @resource(

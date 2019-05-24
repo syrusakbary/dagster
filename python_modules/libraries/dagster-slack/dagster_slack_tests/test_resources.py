@@ -1,27 +1,23 @@
-import responses
-
+from unittest.mock import patch
+from asyncio import Future
 from dagster import execute_pipeline, solid, PipelineDefinition, ModeDefinition
 
 from dagster_slack import slack_resource
 
 
-@responses.activate
 def test_slack_resource():
     @solid(resources={'slack'})
     def slack_solid(context):
         assert context.resources.slack
-        with responses.RequestsMock() as rsps:
-            rsps.add(
-                rsps.POST,
-                'https://slack.com/api/chat.postMessage',
-                status=200,
-                json={
-                    'ok': True,
-                    'channel': 'SOME_CHANNEL',
-                    'ts': '1555993892.000300',
-                    'headers': {'Content-Type': 'application/json; charset=utf-8'},
-                },
-            )
+        f = Future()
+        f.set_result(
+            {
+                'data': {'ok': True, 'channel': 'SOME_CHANNEL', 'ts': '1555993892.000300'},
+                'headers': {'Content-Type': 'application/json; charset=utf-8'},
+                'status_code': 200,
+            }
+        )
+        with patch('slack.WebClient._request', return_value=f):
             context.resources.slack.chat.post_message()
 
     pipeline = PipelineDefinition(
