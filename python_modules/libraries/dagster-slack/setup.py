@@ -43,7 +43,7 @@ def _do_setup(name='dagster-slack'):
             'Operating System :: OS Independent',
         ],
         packages=find_packages(exclude=['test']),
-        install_requires=['dagster', 'slackclient==1.3.1'],
+        install_requires=['dagster', 'slackclient==2.0.0'],
         tests_require=['responses==0.10.*'],
         zip_safe=False,
     )
