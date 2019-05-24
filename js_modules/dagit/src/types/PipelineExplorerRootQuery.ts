@@ -281,11 +281,6 @@ export interface PipelineExplorerRootQuery_pipeline_solids {
   outputs: PipelineExplorerRootQuery_pipeline_solids_outputs[];
 }
 
-export interface PipelineExplorerRootQuery_pipeline_environmentType {
-  __typename: "EnumConfigType" | "CompositeConfigType" | "RegularConfigType" | "ListConfigType" | "NullableConfigType";
-  name: string | null;
-}
-
 export interface PipelineExplorerRootQuery_pipeline_modes_resources_configField_configType_EnumConfigType_innerTypes_EnumConfigType_innerTypes {
   __typename: "EnumConfigType" | "CompositeConfigType" | "RegularConfigType" | "ListConfigType" | "NullableConfigType";
   key: string;
@@ -591,7 +586,6 @@ export interface PipelineExplorerRootQuery_pipeline {
   name: string;
   description: string | null;
   solids: PipelineExplorerRootQuery_pipeline_solids[];
-  environmentType: PipelineExplorerRootQuery_pipeline_environmentType;
   modes: PipelineExplorerRootQuery_pipeline_modes[];
 }
 
