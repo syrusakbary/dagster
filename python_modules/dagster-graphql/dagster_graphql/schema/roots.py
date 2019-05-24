@@ -1,5 +1,6 @@
 from dagster.core.execution.api import ExecutionSelector
 
+from dagster import check
 from dagster_graphql import dauphin
 from dagster_graphql.implementation.execution import (
     ExecutionMetadata,
@@ -21,6 +22,10 @@ from dagster_graphql.implementation.fetch_runs import (
     get_runs,
     validate_pipeline_config,
 )
+from dagster_graphql.implementation.environment_schema import resolve_environment_schema_or_error
+
+
+from .config_types import to_dauphin_config_type
 
 
 class DauphinQuery(dauphin.ObjectType):
@@ -73,6 +78,14 @@ class DauphinQuery(dauphin.ObjectType):
         },
     )
 
+    environmentSchemaOrError = dauphin.Field(
+        dauphin.NonNull('EnvironmentSchemaOrError'),
+        args={
+            'selector': dauphin.Argument(dauphin.NonNull('ExecutionSelector')),
+            'mode': dauphin.Argument(dauphin.NonNull(dauphin.String)),
+        },
+    )
+
     def resolve_configTypeOrError(self, graphene_info, **kwargs):
         return get_config_type(
             graphene_info, kwargs['pipelineName'], kwargs['configTypeName'], kwargs.get('mode')
@@ -116,6 +129,11 @@ class DauphinQuery(dauphin.ObjectType):
             pipeline.to_selector(),
             kwargs.get('environmentConfigData'),
             kwargs.get('mode'),
+        )
+
+    def resolve_environmentSchemaOrError(self, graphene_info, **kwargs):
+        return resolve_environment_schema_or_error(
+            graphene_info, kwargs['selector'].to_selector(), kwargs['mode']
         )
 
 
@@ -293,3 +311,41 @@ class DauphinExecutionSelector(dauphin.InputObjectType):
 
     def to_selector(self):
         return ExecutionSelector(self.name, self.solidSubset)
+
+
+class DauphinEnvironmentSchema(dauphin.ObjectType):
+    def __init__(self, environment_schema):
+        from dagster.core.definitions.environment_schema import EnvironmentSchema
+
+        self._environment_schema = check.inst_param(
+            environment_schema, 'environment_schema', EnvironmentSchema
+        )
+
+    class Meta:
+        name = 'EnvironmentSchema'
+
+    environmentType = dauphin.Field(dauphin.NonNull('ConfigType'))
+    configTypes = dauphin.Field(dauphin.non_null_list('ConfigType'))
+    configTypeOrError = dauphin.Field(
+        dauphin.NonNull('ConfigTypeOrError'),
+        configTypeName=dauphin.Argument(dauphin.NonNull(dauphin.String)),
+    )
+
+    isEnvironmentConfigValid = dauphin.Field(
+        dauphin.NonNull('PipelineConfigValidationResult'),
+        args={'environmentConfigData': dauphin.Argument('EnvironmentConfigData')},
+    )
+
+    def resolve_environmentType(self, _graphene_info):
+        return to_dauphin_config_type(self._environment_schema.environment_type)
+
+
+class DauphinEnvironmentSchemaOrError(dauphin.Union):
+    class Meta:
+        name = 'EnvironmentSchemaOrError'
+        types = (
+            'EnvironmentSchema',
+            'PipelineNotFoundError',
+            'SolidNotFoundError',
+            'ModeNotFoundError',
+        )
