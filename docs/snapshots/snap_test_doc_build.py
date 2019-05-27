@@ -546,14 +546,14 @@ snapshots['test_build_all_docs 3'] = '''
     <script type="text/javascript" src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="#" />
     <link rel="search" title="Search" href="search.html" />
- 
+
 <link rel="stylesheet" href="_static/custom.css" type="text/css" />
 
 
 <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
-  
+
 
     <div class="document">
     <div class="documentwrapper">
@@ -568,12 +568,12 @@ snapshots['test_build_all_docs 3'] = '''
     </ul>
 </nav>
             </div>
-            
 
-            
+
+
 
             <div class="body" role="main">
-                
+
 
 <h1 id="index">Index</h1>
 
@@ -596,7 +596,7 @@ snapshots['test_build_all_docs 3'] = '''
  | <a href="#S"><strong>S</strong></a>
  | <a href="#T"><strong>T</strong></a>
  | <a href="#V"><strong>V</strong></a>
- 
+
 </div>
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
@@ -973,7 +973,7 @@ snapshots['test_build_all_docs 3'] = '''
     </ul>
 </nav>
             </div>
-            
+
         </div>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -992,11 +992,11 @@ snapshots['test_build_all_docs 3'] = '''
     </div>
 <div class="footer">
     &copy; 2019, Elementl, Inc.
-    
+
     |
     Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
     &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-    
+
 </div>
 
 
@@ -1023,21 +1023,21 @@ snapshots['test_build_all_docs 4'] = '''
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Install" href="sections/install/install.html" />
- 
+
 <link rel="stylesheet" href="_static/custom.css" type="text/css" />
 
 
 <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
-  
+
 
     <div class="document">
     <div class="documentwrapper">
         <div class="bodywrapper">
-            
 
-            
+
+
             <div class="dagster">
                 <div class="logo_img">
                     <img
@@ -1088,7 +1088,7 @@ snapshots['test_build_all_docs 4'] = '''
             </div>
 
             <div class="body" role="main">
-                
+
   <div class="toctree-wrapper compound" id="documentation">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="sections/install/install.html">Install</a><ul>
@@ -1147,7 +1147,7 @@ snapshots['test_build_all_docs 4'] = '''
 
 
             </div>
-            
+
         </div>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -1166,11 +1166,11 @@ snapshots['test_build_all_docs 4'] = '''
     </div>
 <div class="footer">
     &copy; 2019, Elementl, Inc.
-    
+
     |
     Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
     &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-    
+
     |
     <a href="_sources/index.rst.txt" rel="nofollow">Page source</a>
 </div>
@@ -1199,7 +1199,7 @@ snapshots['test_build_all_docs 5'] = '''
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
 
- 
+
 <link rel="stylesheet" href="_static/custom.css" type="text/css" />
 
 
@@ -1212,7 +1212,7 @@ snapshots['test_build_all_docs 5'] = '''
 
 
   </head><body>
-  
+
 
     <div class="document">
     <div class="documentwrapper">
@@ -1227,12 +1227,12 @@ snapshots['test_build_all_docs 5'] = '''
     </ul>
 </nav>
             </div>
-            
 
-            
+
+
 
             <div class="body" role="main">
-                
+
 
    <h1>Python Module Index</h1>
 
@@ -1263,7 +1263,7 @@ snapshots['test_build_all_docs 5'] = '''
     </ul>
 </nav>
             </div>
-            
+
         </div>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -1282,11 +1282,11 @@ snapshots['test_build_all_docs 5'] = '''
     </div>
 <div class="footer">
     &copy; 2019, Elementl, Inc.
-    
+
     |
     Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
     &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-    
+
 </div>
 
 
@@ -1305,7 +1305,7 @@ snapshots['test_build_all_docs 6'] = '''
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
-    
+
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
@@ -1315,8 +1315,8 @@ snapshots['test_build_all_docs 6'] = '''
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="#" />
   <script type="text/javascript" src="searchindex.js" defer></script>
-  
- 
+
+
 <link rel="stylesheet" href="_static/custom.css" type="text/css" />
 
 
@@ -1324,7 +1324,7 @@ snapshots['test_build_all_docs 6'] = '''
 
 
   </head><body>
-  
+
 
     <div class="document">
     <div class="documentwrapper">
@@ -1339,12 +1339,12 @@ snapshots['test_build_all_docs 6'] = '''
     </ul>
 </nav>
             </div>
-            
 
-            
+
+
 
             <div class="body" role="main">
-                
+
   <h1 id="search-documentation">Search</h1>
   <div id="fallback" class="admonition warning">
   <script type="text/javascript">$(\'#fallback\').hide();</script>
@@ -1364,9 +1364,9 @@ snapshots['test_build_all_docs 6'] = '''
     <input type="submit" value="search" />
     <span id="search-progress" style="padding-left: 10px"></span>
   </form>
-  
+
   <div id="search-results">
-  
+
   </div>
 
             </div>
@@ -1380,7 +1380,7 @@ snapshots['test_build_all_docs 6'] = '''
     </ul>
 </nav>
             </div>
-            
+
         </div>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -1399,11 +1399,11 @@ snapshots['test_build_all_docs 6'] = '''
     </div>
 <div class="footer">
     &copy; 2019, Elementl, Inc.
-    
+
     |
     Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
     &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-    
+
 </div>
 
 
@@ -1429,14 +1429,14 @@ snapshots['test_build_all_docs 7'] = '''
     <script type="text/javascript" src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
- 
+
 <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
 
 
 <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
-  
+
 
     <div class="document">
     <div class="documentwrapper">
@@ -1451,12 +1451,12 @@ snapshots['test_build_all_docs 7'] = '''
     </ul>
 </nav>
             </div>
-            
 
-            
+
+
 
             <div class="body" role="main">
-                
+
   <h1>All modules for which code is available</h1>
 <ul><li><a href="dagster/core/definitions/decorators.html">dagster.core.definitions.decorators</a></li>
 <li><a href="dagster/core/definitions/dependency.html">dagster.core.definitions.dependency</a></li>
@@ -1501,7 +1501,7 @@ snapshots['test_build_all_docs 7'] = '''
     </ul>
 </nav>
             </div>
-            
+
         </div>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -1520,11 +1520,11 @@ snapshots['test_build_all_docs 7'] = '''
     </div>
 <div class="footer">
     &copy; 2019, Elementl, Inc.
-    
+
     |
     Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
     &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-    
+
 </div>
 
 
@@ -2184,7 +2184,7 @@ Functional
 Data pipelines should be expressed as DAGs (directed acyclic graphs) of functional, idempotent
 computations. Individual nodes in the graph consume their inputs, perform some computation, and
 yield outputs, either with no side effects or with clearly advertised side effects. Given the
-same inputs and configuration, the computation should always produce the same output. If these 
+same inputs and configuration, the computation should always produce the same output. If these
 computations have external dependencies, these should be parametrizable, so that the computations
 may execute in different environments.
 
@@ -3264,15 +3264,15 @@ how pipeline execution interacts with its environment.
 '''
 
 snapshots['test_build_all_docs 21'] = '''============
-Dagstermill 
+Dagstermill
 ============
 
-A wonderful feature of using Dagster is that you can productionize Jupyter notebooks and involve them in a (production) pipeline as units of computation. 
+A wonderful feature of using Dagster is that you can productionize Jupyter notebooks and involve them in a (production) pipeline as units of computation.
 
-There are a few stages of data scientists using notebooks in the wild. 
+There are a few stages of data scientists using notebooks in the wild.
 
 1. Unstructured scratch work, cells are often run out of order.
-2. More refined prototyping, where cells are run sequentially. Usually the top cells contain parameters that are used in later cells. 
+2. More refined prototyping, where cells are run sequentially. Usually the top cells contain parameters that are used in later cells.
 3. Pieces of re-usable code are extracted from a notebook, turned into functions and put in a script (``.py`` file)
 
 Typically, only stage 3 would be involved in a production pipeline. However, with dagstermill, if you have a notebook in stage 2 (i.e. cells run sequentially to produce the desired output), with minimal effort you can register this notebook as a solid in the pipeline and use the notebook driven solid as a unit of computation that takes in inputs and produces outputs (that can be consumed by later stages of the pipeline).
@@ -3295,7 +3295,7 @@ The notebook might have a cell that looks like the following:
     b = 5
     result = 3 + 5
 
-Currently your notebook simply adds together the numbers ``3`` and ``5``, but in a more generic sense, your notebook is effectively a function that takes in inputs ``a`` and ``b`` and products output ``result``. To use the language of the dagster abstraction, it is a solid with inputs ``a``, ``b`` of dagster-type ``Int`` and with an ouput ``result`` of type ``Int``. 
+Currently your notebook simply adds together the numbers ``3`` and ``5``, but in a more generic sense, your notebook is effectively a function that takes in inputs ``a`` and ``b`` and products output ``result``. To use the language of the dagster abstraction, it is a solid with inputs ``a``, ``b`` of dagster-type ``Int`` and with an ouput ``result`` of type ``Int``.
 
 To register this notebook as a dagster solid, we use the following lines of code.
 
@@ -3314,9 +3314,9 @@ To register this notebook as a dagster solid, we use the following lines of code
                                 ouputs = [OutputDefinition(Int)]
                             )
 
-The function ``dm.define_dagstermill_solid()`` returns an object of type ``SolidDefinition`` that can be passed into ``PipelineDefinition`` objects. We see that its arguments are rather self-explanatory: 
+The function ``dm.define_dagstermill_solid()`` returns an object of type ``SolidDefinition`` that can be passed into ``PipelineDefinition`` objects. We see that its arguments are rather self-explanatory:
 
-* ``name``: the name of the solid 
+* ``name``: the name of the solid
 * ``notebook_path``: the location of the notebook so that the dagster execution engine can run the code in the notebook
 * ``inputs``, ``outputs``: the named and typed inputs and outputs of the notebook as a solid
 
@@ -3335,17 +3335,17 @@ There is a helpful `Dagstermill CLI`_ that you can use to generate notebooks tha
 Output Notebooks & How Dagstermill Works
 ----------------------------------------
 
-The way dagstermill works is by auto-injecting a cell that replaces the `parameters`-tagged cell with the 
-runtime values of the inputs and then running the notebook using the `papermill <https://github.com/nteract/papermill/>`_ library. 
-A nice side effect of using the papermill library to run the notebook is that the output is contained in an "output notebook", 
-and the source notebook remains unchanged. Since the output notebook is itself a valid Jupyter notebook, debugging can be done within the notebook environment! 
+The way dagstermill works is by auto-injecting a cell that replaces the `parameters`-tagged cell with the
+runtime values of the inputs and then running the notebook using the `papermill <https://github.com/nteract/papermill/>`_ library.
+A nice side effect of using the papermill library to run the notebook is that the output is contained in an "output notebook",
+and the source notebook remains unchanged. Since the output notebook is itself a valid Jupyter notebook, debugging can be done within the notebook environment!
 
 The execution log contains the path to the output notebook so that you can access it after execution to examine and potentially debug the output. Within dagit we also provide a link to the output notebook, as shown below.
 
 .. image:: output_notebook.png
 
 ----------------------------
-Summary of Using Dagstermill 
+Summary of Using Dagstermill
 ----------------------------
 
 Initially, you might want to prototype with a notebook without worrying about incorporating it into a dagster pipeline. When you want to incorporate it into a pipeline, do the following steps:
@@ -3361,9 +3361,9 @@ The `Dagstermill CLI`_ should help you with stage 2.
 A (More Complicated) Dagstermill Pipeline
 -----------------------------------------
 
-The above pipeline was a very simplistic use-case of a dagster pipeline involving notebook-driven solids. 
-Below we provide a more complicated example of a pipeline involving notebooks with outputs that are fed in as inputs into further steps in the pipeline. 
-This is a particular compelling use-case of incorporating notebook-driven solids into a pipeline, as the user no longer has to manually marshall the inputs and outputs of notebooks manually. 
+The above pipeline was a very simplistic use-case of a dagster pipeline involving notebook-driven solids.
+Below we provide a more complicated example of a pipeline involving notebooks with outputs that are fed in as inputs into further steps in the pipeline.
+This is a particular compelling use-case of incorporating notebook-driven solids into a pipeline, as the user no longer has to manually marshall the inputs and outputs of notebooks manually.
 Instead, the dagster execution engine takes care of this for us! Let us look at the following machine-learning inspired pipeline.
 
 .. image:: ML_pipeline.png
@@ -3383,11 +3383,11 @@ The corresponding dagster code for defining the pipeline is as follows:
             },
         )
 
-The ``clean_data_solid`` solid is driven by the following notebook: 
+The ``clean_data_solid`` solid is driven by the following notebook:
 
 .. image:: clean_data_ipynb.png
 
-We see that this notebook loads some data, filters it and yields it as a dataframe. 
+We see that this notebook loads some data, filters it and yields it as a dataframe.
 Then, this dataframe is consumed by the solids ``linear_regression`` and ``random_forest_regression``, which both consume inputs ``df`` that is flowed from the output of ``clean_data_solid``.
 
 The ``random_forest_regression`` solid is driven by the following notebook:
@@ -3395,15 +3395,15 @@ The ``random_forest_regression`` solid is driven by the following notebook:
 .. image:: RF_ipynb.png
 
 Without the dagstermill abstraction, we'd have to manually save the output of the ``clean_data`` notebook to a location and make sure to load the same location in the 2 other notebooks.
-However, the dagster execution engine takes care of this marshalling for us, 
-so notice that the ``random_forest_regression`` notebook is simply using ``df`` as a parameter 
+However, the dagster execution engine takes care of this marshalling for us,
+so notice that the ``random_forest_regression`` notebook is simply using ``df`` as a parameter
 that will be over-written with its correct runtime value from the result of ``clean_data``.
 
 After running the pipeline, we can examine the ``random_forest_regression`` output notebook, which looks as follows:
 
 .. image:: RF_output_notebook.png
 
-The output notebook is quite convenient, because we can debug within the notebook environment as well as view plots and other output within the notebook context. 
+The output notebook is quite convenient, because we can debug within the notebook environment as well as view plots and other output within the notebook context.
 We can also look at the input that was flowed into the notebook (i.e. the filtered output of ``clean_data``).
 
 ---------------------
@@ -3415,10 +3415,10 @@ The boilerplate necesary for a notebook involves some of the ``dagstermill`` API
 .. code-block:: python
 
     notebook_driven_solid = dm.define_dagstermill_solid(
-        name, 
-        notebook_path, 
-        inputs=None, 
-        outputs=None, 
+        name,
+        notebook_path,
+        inputs=None,
+        outputs=None,
         config_field=None
     )
 
@@ -3427,17 +3427,17 @@ The boilerplate necesary for a notebook involves some of the ``dagstermill`` API
 This function creates a notebook-driven solid by taking in a solid name, notebook location and typed inputs and outputs, and returns a SolidDefinition that can be used in a dagster Pipeline.
 
 
-**Parameters**: 
+**Parameters**:
 
 * **name** (str) -- Name of solid in pipeline
 * **notebook_path** (str) -- File path of notebook that drives the solid
-* **inputs** (list[InputDefinition]) 
+* **inputs** (list[InputDefinition])
 * **outputs** (list[OutputDefinition])
 * **config_field** (generic) -- Config for the solid
 
 
-.. code-block:: python 
-    
+.. code-block:: python
+
     dm.register_repository(repository_defn)
 
 To use a notebook as a solid in a pipeline, the first cell of the notebook *must* register the repository to which the notebook driven solid belongs.
@@ -3458,12 +3458,12 @@ If the notebook driven solid has outputs (as defined when using ``define_dagster
 * output_name (str) -- Defaults to "result", but must match the name given in the OutputDefinition (which defaults to ``"result"`` if there is only 1 output)
 
 .. code-block:: python
-    
+
     context = dm.get_context(config=None)
     assert (isinstance(context, AbstractTransformExecutionContext))
     context.log.info("This will log some info to the logger")
 
-If you want access to the context object that is available in other solids, then you can call ``get_context()`` with the desired config within the notebook to access the context object and manipulate it as you would in any other solid. When the notebook is run as a solid in a pipeline, the context will be injected at runtime with the configuration provided for the entire pipeline. 
+If you want access to the context object that is available in other solids, then you can call ``get_context()`` with the desired config within the notebook to access the context object and manipulate it as you would in any other solid. When the notebook is run as a solid in a pipeline, the context will be injected at runtime with the configuration provided for the entire pipeline.
 
 **Parameters**
 
@@ -3478,12 +3478,12 @@ To assist you in productionizing notebooks, the dagstermill CLI will be helpful 
 To create a notebook when you know the repository, use the ``dagstermill create-notebook`` command. The notebook name is provided with the ``--notebook`` argument. A repository can be provided using the ``.yml`` file or the other command line options for specifying the location of a repository definition. If the repository is not provided, then the scaffolding ``dm.register_repository()`` is not inserted.
 
 .. code-block:: console
-    
+
     $ dagstermill create-notebook --notebook "notebook_name" -y repository.yml
 
 Normally, the ``create-notebook`` command will prompt to ask if you want to over-write an existing notebook with the same name (if such a notebook exists). The ``--force-overwrite`` flag forces the over-write.
 
-.. code-block:: console 
+.. code-block:: console
 
     $ dagstermill create-notebook --help
 
@@ -3514,17 +3514,17 @@ Given a notebook that does not have the requisite scaffolding (perhaps a noteboo
 
     $ dagstermill register-notebook --notebook path/to/notebook -y repository.yaml
 
-**Example CLI usage** 
+**Example CLI usage**
 
 .. code-block:: console
 
     $ dagstermill create-notebook --notebook test_notebook
 
-Gives the following notebook--notice how there is no call to ``register_repository`` within the notebook. 
+Gives the following notebook--notice how there is no call to ``register_repository`` within the notebook.
 
 .. image:: pre_boilerplate_notebook.png
 
-After a while, say you finally have a repository file (``repository.yml``). Then you register the notebook, giving the following: 
+After a while, say you finally have a repository file (``repository.yml``). Then you register the notebook, giving the following:
 
 .. code-block:: console
 
@@ -16929,7 +16929,7 @@ snapshots['test_build_all_docs 43'] = '''/*
 var stopwords = ["a","and","are","as","at","be","but","by","for","if","in","into","is","it","near","no","not","of","on","or","such","that","the","their","then","there","these","they","this","to","was","will","with"];
 
 
-/* Non-minified version JS is _stemmer.js if file is provided */ 
+/* Non-minified version JS is _stemmer.js if file is provided */
 /**
  * Porter Stemmer
  */
@@ -19117,14 +19117,14 @@ snapshots['test_build_all_docs 49'] = '''
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Solids" href="apidocs/solids.html" />
     <link rel="prev" title="Upgrading to 0.3.0" href="../learn/guides/028_to_030_upgrade_guide.html" />
- 
+
 <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
 
 
 <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
-  
+
 
     <div class="document">
     <div class="documentwrapper">
@@ -19147,12 +19147,12 @@ snapshots['test_build_all_docs 49'] = '''
     </ul>
 </nav>
             </div>
-            
 
-            
+
+
 
             <div class="body" role="main">
-                
+
   <div class="section" id="api-docs">
 <h1>API Docs<a class="headerlink" href="#api-docs" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound" id="api-reference">
@@ -19189,7 +19189,7 @@ snapshots['test_build_all_docs 49'] = '''
     </ul>
 </nav>
             </div>
-            
+
         </div>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -19218,11 +19218,11 @@ snapshots['test_build_all_docs 49'] = '''
     </div>
 <div class="footer">
     &copy; 2019, Elementl, Inc.
-    
+
     |
     Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
     &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-    
+
     |
     <a href="../../_sources/sections/api/api.rst.txt" rel="nofollow">Page source</a>
 </div>
@@ -19252,14 +19252,14 @@ snapshots['test_build_all_docs 50'] = '''
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Utilities" href="utilities.html" />
     <link rel="prev" title="Types" href="types.html" />
- 
+
 <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
 
 
 <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
-  
+
 
     <div class="document">
     <div class="documentwrapper">
@@ -19282,12 +19282,12 @@ snapshots['test_build_all_docs 50'] = '''
     </ul>
 </nav>
             </div>
-            
 
-            
+
+
 
             <div class="body" role="main">
-                
+
   <div class="section" id="errors">
 <h1>Errors<a class="headerlink" href="#errors" title="Permalink to this headline">¶</a></h1>
 <p>Core dagster error classes.</p>
@@ -19357,7 +19357,7 @@ argument to the ctor is meant to be a sys.exc_info at the site of constructor.</
     </ul>
 </nav>
             </div>
-            
+
         </div>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -19386,11 +19386,11 @@ argument to the ctor is meant to be a sys.exc_info at the site of constructor.</
     </div>
 <div class="footer">
     &copy; 2019, Elementl, Inc.
-    
+
     |
     Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
     &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-    
+
     |
     <a href="../../../_sources/sections/api/apidocs/errors.rst.txt" rel="nofollow">Page source</a>
 </div>
@@ -19420,14 +19420,14 @@ snapshots['test_build_all_docs 51'] = '''
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Types" href="types.html" />
     <link rel="prev" title="Pipelines" href="pipeline.html" />
- 
+
 <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
 
 
 <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
-  
+
 
     <div class="document">
     <div class="documentwrapper">
@@ -19450,12 +19450,12 @@ snapshots['test_build_all_docs 51'] = '''
     </ul>
 </nav>
             </div>
-            
 
-            
+
+
 
             <div class="body" role="main">
-                
+
   <div class="section" id="execution">
 <h1>Execution<a class="headerlink" href="#execution" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="execution-functions">
@@ -19681,7 +19681,7 @@ for subset rexecution.</p></li>
     </ul>
 </nav>
             </div>
-            
+
         </div>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -19710,11 +19710,11 @@ for subset rexecution.</p></li>
     </div>
 <div class="footer">
     &copy; 2019, Elementl, Inc.
-    
+
     |
     Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
     &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-    
+
     |
     <a href="../../../_sources/sections/api/apidocs/execution.rst.txt" rel="nofollow">Page source</a>
 </div>
@@ -19744,14 +19744,14 @@ snapshots['test_build_all_docs 52'] = '''
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Execution" href="execution.html" />
     <link rel="prev" title="Solids" href="solids.html" />
- 
+
 <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
 
 
 <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
-  
+
 
     <div class="document">
     <div class="documentwrapper">
@@ -19774,12 +19774,12 @@ snapshots['test_build_all_docs 52'] = '''
     </ul>
 </nav>
             </div>
-            
 
-            
+
+
 
             <div class="body" role="main">
-                
+
   <div class="section" id="pipelines">
 <h1>Pipelines<a class="headerlink" href="#pipelines" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
@@ -20255,7 +20255,7 @@ handle constructing the dictionary of pipeline name to functions for you</p>
     </ul>
 </nav>
             </div>
-            
+
         </div>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -20284,11 +20284,11 @@ handle constructing the dictionary of pipeline name to functions for you</p>
     </div>
 <div class="footer">
     &copy; 2019, Elementl, Inc.
-    
+
     |
     Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
     &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-    
+
     |
     <a href="../../../_sources/sections/api/apidocs/pipeline.rst.txt" rel="nofollow">Page source</a>
 </div>
@@ -20318,14 +20318,14 @@ snapshots['test_build_all_docs 53'] = '''
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Pipelines" href="pipeline.html" />
     <link rel="prev" title="API Docs" href="../api.html" />
- 
+
 <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
 
 
 <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
-  
+
 
     <div class="document">
     <div class="documentwrapper">
@@ -20348,12 +20348,12 @@ snapshots['test_build_all_docs 53'] = '''
     </ul>
 </nav>
             </div>
-            
 
-            
+
+
 
             <div class="body" role="main">
-                
+
   <div class="section" id="solids">
 <h1>Solids<a class="headerlink" href="#solids" title="Permalink to this headline">¶</a></h1>
 <p>The foundational unit of composition in Dagster.</p>
@@ -20817,7 +20817,7 @@ you can assume that value is a <code class="docutils literal notranslate"><span 
     </ul>
 </nav>
             </div>
-            
+
         </div>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -20846,11 +20846,11 @@ you can assume that value is a <code class="docutils literal notranslate"><span 
     </div>
 <div class="footer">
     &copy; 2019, Elementl, Inc.
-    
+
     |
     Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
     &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-    
+
     |
     <a href="../../../_sources/sections/api/apidocs/solids.rst.txt" rel="nofollow">Page source</a>
 </div>
@@ -20880,14 +20880,14 @@ snapshots['test_build_all_docs 54'] = '''
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Errors" href="errors.html" />
     <link rel="prev" title="Execution" href="execution.html" />
- 
+
 <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
 
 
 <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
-  
+
 
     <div class="document">
     <div class="documentwrapper">
@@ -20910,12 +20910,12 @@ snapshots['test_build_all_docs 54'] = '''
     </ul>
 </nav>
             </div>
-            
 
-            
+
+
 
             <div class="body" role="main">
-                
+
   <div class="section" id="module-dagster">
 <span id="types"></span><h1>Types<a class="headerlink" href="#module-dagster" title="Permalink to this headline">¶</a></h1>
 <p>Dagster type system.</p>
@@ -21183,7 +21183,7 @@ of a <code class="docutils literal notranslate"><span class="pre">config_value</
     </ul>
 </nav>
             </div>
-            
+
         </div>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -21212,11 +21212,11 @@ of a <code class="docutils literal notranslate"><span class="pre">config_value</
     </div>
 <div class="footer">
     &copy; 2019, Elementl, Inc.
-    
+
     |
     Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
     &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-    
+
     |
     <a href="../../../_sources/sections/api/apidocs/types.rst.txt" rel="nofollow">Page source</a>
 </div>
@@ -21246,14 +21246,14 @@ snapshots['test_build_all_docs 55'] = '''
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Reference" href="../../reference/reference.html" />
     <link rel="prev" title="Errors" href="errors.html" />
- 
+
 <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
 
 
 <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
-  
+
 
     <div class="document">
     <div class="documentwrapper">
@@ -21276,12 +21276,12 @@ snapshots['test_build_all_docs 55'] = '''
     </ul>
 </nav>
             </div>
-            
 
-            
+
+
 
             <div class="body" role="main">
-                
+
   <div class="section" id="utilities">
 <h1>Utilities<a class="headerlink" href="#utilities" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
@@ -21316,7 +21316,7 @@ snapshots['test_build_all_docs 55'] = '''
     </ul>
 </nav>
             </div>
-            
+
         </div>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -21345,11 +21345,11 @@ snapshots['test_build_all_docs 55'] = '''
     </div>
 <div class="footer">
     &copy; 2019, Elementl, Inc.
-    
+
     |
     Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
     &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-    
+
     |
     <a href="../../../_sources/sections/api/apidocs/utilities.rst.txt" rel="nofollow">Page source</a>
 </div>
@@ -21379,14 +21379,14 @@ snapshots['test_build_all_docs 56'] = '''
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Contributing" href="contributing.html" />
     <link rel="prev" title="Community" href="community.html" />
- 
+
 <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
 
 
 <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
-  
+
 
     <div class="document">
     <div class="documentwrapper">
@@ -21409,12 +21409,12 @@ snapshots['test_build_all_docs 56'] = '''
     </ul>
 </nav>
             </div>
-            
 
-            
+
+
 
             <div class="body" role="main">
-                
+
   <div class="section" id="code-of-conduct">
 <h1>Code of Conduct<a class="headerlink" href="#code-of-conduct" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="our-pledge">
@@ -21510,7 +21510,7 @@ available at <a class="reference external" href="https://www.contributor-covenan
     </ul>
 </nav>
             </div>
-            
+
         </div>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -21536,11 +21536,11 @@ available at <a class="reference external" href="https://www.contributor-covenan
     </div>
 <div class="footer">
     &copy; 2019, Elementl, Inc.
-    
+
     |
     Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
     &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-    
+
     |
     <a href="../../_sources/sections/community/code_of_conduct.rst.txt" rel="nofollow">Page source</a>
 </div>
@@ -21570,14 +21570,14 @@ snapshots['test_build_all_docs 57'] = '''
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Code of Conduct" href="code_of_conduct.html" />
     <link rel="prev" title="Reference" href="../reference/reference.html" />
- 
+
 <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
 
 
 <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
-  
+
 
     <div class="document">
     <div class="documentwrapper">
@@ -21600,12 +21600,12 @@ snapshots['test_build_all_docs 57'] = '''
     </ul>
 </nav>
             </div>
-            
 
-            
+
+
 
             <div class="body" role="main">
-                
+
   <div class="section" id="community">
 <h1>Community<a class="headerlink" href="#community" title="Permalink to this headline">¶</a></h1>
 <p>Here, we’ve including instructions for how to contribute to the Dagster project. We welcome both
@@ -21641,7 +21641,7 @@ code contributions and issue reports.</p>
     </ul>
 </nav>
             </div>
-            
+
         </div>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -21667,11 +21667,11 @@ code contributions and issue reports.</p>
     </div>
 <div class="footer">
     &copy; 2019, Elementl, Inc.
-    
+
     |
     Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
     &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-    
+
     |
     <a href="../../_sources/sections/community/community.rst.txt" rel="nofollow">Page source</a>
 </div>
@@ -21701,14 +21701,14 @@ snapshots['test_build_all_docs 58'] = '''
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Release Notes" href="release_notes.html" />
     <link rel="prev" title="Code of Conduct" href="code_of_conduct.html" />
- 
+
 <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
 
 
 <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
-  
+
 
     <div class="document">
     <div class="documentwrapper">
@@ -21731,12 +21731,12 @@ snapshots['test_build_all_docs 58'] = '''
     </ul>
 </nav>
             </div>
-            
 
-            
+
+
 
             <div class="body" role="main">
-                
+
   <div class="section" id="contributing">
 <h1>Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h1>
 <p>If you are planning to contribute to dagster, you will need to set up a local
@@ -21847,7 +21847,7 @@ when you are in <code class="docutils literal notranslate"><span class="pre">--w
     </ul>
 </nav>
             </div>
-            
+
         </div>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -21873,11 +21873,11 @@ when you are in <code class="docutils literal notranslate"><span class="pre">--w
     </div>
 <div class="footer">
     &copy; 2019, Elementl, Inc.
-    
+
     |
     Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
     &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-    
+
     |
     <a href="../../_sources/sections/community/contributing.rst.txt" rel="nofollow">Page source</a>
 </div>
@@ -21906,14 +21906,14 @@ snapshots['test_build_all_docs 59'] = '''
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="prev" title="Contributing" href="contributing.html" />
- 
+
 <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
 
 
 <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
-  
+
 
     <div class="document">
     <div class="documentwrapper">
@@ -21932,12 +21932,12 @@ snapshots['test_build_all_docs 59'] = '''
     </ul>
 </nav>
             </div>
-            
 
-            
+
+
 
             <div class="body" role="main">
-                
+
   <div class="section" id="release-notes">
 <h1>Release Notes<a class="headerlink" href="#release-notes" title="Permalink to this headline">¶</a></h1>
 <p>Dagster versions follow the guidelines in <a class="reference external" href="https://www.python.org/dev/peps/pep-0440//">PEP 440</a>.</p>
@@ -22224,7 +22224,7 @@ should be raised.</p></li>
     </ul>
 </nav>
             </div>
-            
+
         </div>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -22250,11 +22250,11 @@ should be raised.</p></li>
     </div>
 <div class="footer">
     &copy; 2019, Elementl, Inc.
-    
+
     |
     Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
     &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-    
+
     |
     <a href="../../_sources/sections/community/release_notes.rst.txt" rel="nofollow">Page source</a>
 </div>
@@ -22284,14 +22284,14 @@ snapshots['test_build_all_docs 60'] = '''
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Learn" href="../learn/learn.html" />
     <link rel="prev" title="&lt;no title&gt;" href="../../index.html" />
- 
+
 <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
 
 
 <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
-  
+
 
     <div class="document">
     <div class="documentwrapper">
@@ -22310,12 +22310,12 @@ snapshots['test_build_all_docs 60'] = '''
     </ul>
 </nav>
             </div>
-            
 
-            
+
+
 
             <div class="body" role="main">
-                
+
   <div class="section" id="install">
 <h1>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="quick-start">
@@ -22434,7 +22434,7 @@ running:</p>
     </ul>
 </nav>
             </div>
-            
+
         </div>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -22457,11 +22457,11 @@ running:</p>
     </div>
 <div class="footer">
     &copy; 2019, Elementl, Inc.
-    
+
     |
     Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
     &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-    
+
     |
     <a href="../../_sources/sections/install/install.rst.txt" rel="nofollow">Page source</a>
 </div>
@@ -22491,14 +22491,14 @@ snapshots['test_build_all_docs 61'] = '''
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Tutorial" href="tutorial/index.html" />
     <link rel="prev" title="Install" href="../install/install.html" />
- 
+
 <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
 
 
 <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
-  
+
 
     <div class="document">
     <div class="documentwrapper">
@@ -22521,12 +22521,12 @@ snapshots['test_build_all_docs 61'] = '''
     </ul>
 </nav>
             </div>
-            
 
-            
+
+
 
             <div class="body" role="main">
-                
+
   <div class="section" id="learn">
 <h1>Learn<a class="headerlink" href="#learn" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
@@ -22566,7 +22566,7 @@ snapshots['test_build_all_docs 61'] = '''
     </ul>
 </nav>
             </div>
-            
+
         </div>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -22590,11 +22590,11 @@ snapshots['test_build_all_docs 61'] = '''
     </div>
 <div class="footer">
     &copy; 2019, Elementl, Inc.
-    
+
     |
     Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
     &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-    
+
     |
     <a href="../../_sources/sections/learn/learn.rst.txt" rel="nofollow">Page source</a>
 </div>
@@ -22624,14 +22624,14 @@ snapshots['test_build_all_docs 62'] = '''
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="New Concepts in 0.3.0" href="guides/028_to_030_new_concepts.html" />
     <link rel="prev" title="Dagstermill" href="tutorial/dagstermill.html" />
- 
+
 <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
 
 
 <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
-  
+
 
     <div class="document">
     <div class="documentwrapper">
@@ -22654,12 +22654,12 @@ snapshots['test_build_all_docs 62'] = '''
     </ul>
 </nav>
             </div>
-            
 
-            
+
+
 
             <div class="body" role="main">
-                
+
   <div class="section" id="principles">
 <h1>Principles<a class="headerlink" href="#principles" title="Permalink to this headline">¶</a></h1>
 <p>Dagster is opinionated about how data pipelines should be built and structured. What do we think
@@ -22752,7 +22752,7 @@ documentation and runtime error checking.</p>
     </ul>
 </nav>
             </div>
-            
+
         </div>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -22776,11 +22776,11 @@ documentation and runtime error checking.</p>
     </div>
 <div class="footer">
     &copy; 2019, Elementl, Inc.
-    
+
     |
     Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
     &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-    
+
     |
     <a href="../../_sources/sections/learn/principles.rst.txt" rel="nofollow">Page source</a>
 </div>
@@ -22810,14 +22810,14 @@ snapshots['test_build_all_docs 63'] = '''
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Upgrading to 0.3.0" href="028_to_030_upgrade_guide.html" />
     <link rel="prev" title="Principles" href="../principles.html" />
- 
+
 <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
 
 
 <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
-  
+
 
     <div class="document">
     <div class="documentwrapper">
@@ -22840,12 +22840,12 @@ snapshots['test_build_all_docs 63'] = '''
     </ul>
 </nav>
             </div>
-            
 
-            
+
+
 
             <div class="body" role="main">
-                
+
   <div class="section" id="new-concepts-in-0-3-0">
 <span id="new-concepts-in-0-3-0"></span><h1>New Concepts in 0.3.0<a class="headerlink" href="#new-concepts-in-0-3-0" title="Permalink to this headline">¶</a></h1>
 <p>The upgrade guide describes the changes you are <em>require</em> to make to install 0.3.0. This guide
@@ -23162,7 +23162,7 @@ at the beginning of a pipeline.</p>
     </ul>
 </nav>
             </div>
-            
+
         </div>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -23186,11 +23186,11 @@ at the beginning of a pipeline.</p>
     </div>
 <div class="footer">
     &copy; 2019, Elementl, Inc.
-    
+
     |
     Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
     &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-    
+
     |
     <a href="../../../_sources/sections/learn/guides/028_to_030_new_concepts.md.txt" rel="nofollow">Page source</a>
 </div>
@@ -23220,14 +23220,14 @@ snapshots['test_build_all_docs 64'] = '''
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="API Docs" href="../../api/api.html" />
     <link rel="prev" title="New Concepts in 0.3.0" href="028_to_030_new_concepts.html" />
- 
+
 <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
 
 
 <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
-  
+
 
     <div class="document">
     <div class="documentwrapper">
@@ -23250,12 +23250,12 @@ snapshots['test_build_all_docs 64'] = '''
     </ul>
 </nav>
             </div>
-            
 
-            
+
+
 
             <div class="body" role="main">
-                
+
   <div class="section" id="upgrading-to-0-3-0">
 <span id="upgrading-to-0-3-0"></span><h1>Upgrading to 0.3.0<a class="headerlink" href="#upgrading-to-0-3-0" title="Permalink to this headline">¶</a></h1>
 <p>This guide is a step-by-step guide for upgrading from dagster 0.2.x to 0.3.0. This represents a
@@ -23674,7 +23674,7 @@ allowing info temporarily.</p>
     </ul>
 </nav>
             </div>
-            
+
         </div>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -23698,11 +23698,11 @@ allowing info temporarily.</p>
     </div>
 <div class="footer">
     &copy; 2019, Elementl, Inc.
-    
+
     |
     Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
     &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-    
+
     |
     <a href="../../../_sources/sections/learn/guides/028_to_030_upgrade_guide.md.txt" rel="nofollow">Page source</a>
 </div>
@@ -23732,14 +23732,14 @@ snapshots['test_build_all_docs 65'] = '''
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Inputs" href="inputs.html" />
     <link rel="prev" title="Hello, DAG" href="hello_dag.html" />
- 
+
 <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
 
 
 <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
-  
+
 
     <div class="document">
     <div class="documentwrapper">
@@ -23762,12 +23762,12 @@ snapshots['test_build_all_docs 65'] = '''
     </ul>
 </nav>
             </div>
-            
 
-            
+
+
 
             <div class="body" role="main">
-                
+
   <div class="section" id="an-actual-dag">
 <h1>An actual DAG<a class="headerlink" href="#an-actual-dag" title="Permalink to this headline">¶</a></h1>
 <p>Next we will build a slightly more topologically complex DAG that demonstrates how dagster
@@ -23894,7 +23894,7 @@ environment.</p>
     </ul>
 </nav>
             </div>
-            
+
         </div>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -23918,11 +23918,11 @@ environment.</p>
     </div>
 <div class="footer">
     &copy; 2019, Elementl, Inc.
-    
+
     |
     Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
     &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-    
+
     |
     <a href="../../../_sources/sections/learn/tutorial/actual_dag.rst.txt" rel="nofollow">Page source</a>
 </div>
@@ -23952,14 +23952,14 @@ snapshots['test_build_all_docs 66'] = '''
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Configuration Schemas" href="configuration_schemas.html" />
     <link rel="prev" title="Inputs" href="inputs.html" />
- 
+
 <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
 
 
 <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
-  
+
 
     <div class="document">
     <div class="documentwrapper">
@@ -23982,12 +23982,12 @@ snapshots['test_build_all_docs 66'] = '''
     </ul>
 </nav>
             </div>
-            
 
-            
+
+
 
             <div class="body" role="main">
-                
+
   <div class="section" id="configuration">
 <h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h1>
 <p>For maximum flexibility, testability, and reusability, we want to avoid hardcoding solids’
@@ -24128,7 +24128,7 @@ of config: <a class="reference internal" href="configuration_schemas.html"><span
     </ul>
 </nav>
             </div>
-            
+
         </div>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -24152,11 +24152,11 @@ of config: <a class="reference internal" href="configuration_schemas.html"><span
     </div>
 <div class="footer">
     &copy; 2019, Elementl, Inc.
-    
+
     |
     Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
     &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-    
+
     |
     <a href="../../../_sources/sections/learn/tutorial/config.rst.txt" rel="nofollow">Page source</a>
 </div>
@@ -24186,14 +24186,14 @@ snapshots['test_build_all_docs 67'] = '''
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Execution Context" href="execution_context.html" />
     <link rel="prev" title="Configuration" href="config.html" />
- 
+
 <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
 
 
 <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
-  
+
 
     <div class="document">
     <div class="documentwrapper">
@@ -24216,12 +24216,12 @@ snapshots['test_build_all_docs 67'] = '''
     </ul>
 </nav>
             </div>
-            
 
-            
+
+
 
             <div class="body" role="main">
-                
+
   <div class="section" id="configuration-schemas">
 <h1>Configuration Schemas<a class="headerlink" href="#configuration-schemas" title="Permalink to this headline">¶</a></h1>
 <p>Dagster includes a system for strongly-typed, self-describing configurations schemas. These
@@ -24575,7 +24575,7 @@ how pipeline execution interacts with its environment.</p>
     </ul>
 </nav>
             </div>
-            
+
         </div>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -24599,11 +24599,11 @@ how pipeline execution interacts with its environment.</p>
     </div>
 <div class="footer">
     &copy; 2019, Elementl, Inc.
-    
+
     |
     Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
     &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-    
+
     |
     <a href="../../../_sources/sections/learn/tutorial/configuration_schemas.rst.txt" rel="nofollow">Page source</a>
 </div>
@@ -24633,14 +24633,14 @@ snapshots['test_build_all_docs 68'] = '''
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Principles" href="../principles.html" />
     <link rel="prev" title="Unit-testing Pipelines" href="unittesting.html" />
- 
+
 <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
 
 
 <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
-  
+
 
     <div class="document">
     <div class="documentwrapper">
@@ -24663,12 +24663,12 @@ snapshots['test_build_all_docs 68'] = '''
     </ul>
 </nav>
             </div>
-            
 
-            
+
+
 
             <div class="body" role="main">
-                
+
   <div class="section" id="dagstermill">
 <h1>Dagstermill<a class="headerlink" href="#dagstermill" title="Permalink to this headline">¶</a></h1>
 <p>A wonderful feature of using Dagster is that you can productionize Jupyter notebooks and involve them in a (production) pipeline as units of computation.</p>
@@ -24899,7 +24899,7 @@ We can also look at the input that was flowed into the notebook (i.e. the filter
     </ul>
 </nav>
             </div>
-            
+
         </div>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -24923,11 +24923,11 @@ We can also look at the input that was flowed into the notebook (i.e. the filter
     </div>
 <div class="footer">
     &copy; 2019, Elementl, Inc.
-    
+
     |
     Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
     &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-    
+
     |
     <a href="../../../_sources/sections/learn/tutorial/dagstermill.rst.txt" rel="nofollow">Page source</a>
 </div>
@@ -24957,14 +24957,14 @@ snapshots['test_build_all_docs 69'] = '''
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Resources" href="resources.html" />
     <link rel="prev" title="Configuration Schemas" href="configuration_schemas.html" />
- 
+
 <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
 
 
 <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
-  
+
 
     <div class="document">
     <div class="documentwrapper">
@@ -24987,12 +24987,12 @@ snapshots['test_build_all_docs 69'] = '''
     </ul>
 </nav>
             </div>
-            
 
-            
+
+
 
             <div class="body" role="main">
-                
+
   <div class="section" id="execution-context">
 <h1>Execution Context<a class="headerlink" href="#execution-context" title="Permalink to this headline">¶</a></h1>
 <p>One of the most important objects in the system is the execution context. The execution context,
@@ -25103,7 +25103,7 @@ or compute substrates – can be configured using the context.</p>
     </ul>
 </nav>
             </div>
-            
+
         </div>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -25127,11 +25127,11 @@ or compute substrates – can be configured using the context.</p>
     </div>
 <div class="footer">
     &copy; 2019, Elementl, Inc.
-    
+
     |
     Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
     &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-    
+
     |
     <a href="../../../_sources/sections/learn/tutorial/execution_context.rst.txt" rel="nofollow">Page source</a>
 </div>
@@ -25161,14 +25161,14 @@ snapshots['test_build_all_docs 70'] = '''
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Multiple Outputs" href="multiple_outputs.html" />
     <link rel="prev" title="User-Defined Types &amp; Input/Output Schemas" href="types.html" />
- 
+
 <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
 
 
 <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
-  
+
 
     <div class="document">
     <div class="documentwrapper">
@@ -25191,12 +25191,12 @@ snapshots['test_build_all_docs 70'] = '''
     </ul>
 </nav>
             </div>
-            
 
-            
+
+
 
             <div class="body" role="main">
-                
+
   <div class="section" id="expectations">
 <h1>Expectations<a class="headerlink" href="#expectations" title="Permalink to this headline">¶</a></h1>
 <p>Dagster has a first-class concept to capture data quality tests. We call these
@@ -25409,7 +25409,7 @@ configure the pipeline to skip expectations entirely:</p>
     </ul>
 </nav>
             </div>
-            
+
         </div>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -25433,11 +25433,11 @@ configure the pipeline to skip expectations entirely:</p>
     </div>
 <div class="footer">
     &copy; 2019, Elementl, Inc.
-    
+
     |
     Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
     &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-    
+
     |
     <a href="../../../_sources/sections/learn/tutorial/expectations.rst.txt" rel="nofollow">Page source</a>
 </div>
@@ -25467,14 +25467,14 @@ snapshots['test_build_all_docs 71'] = '''
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="An actual DAG" href="actual_dag.html" />
     <link rel="prev" title="Hello, World" href="hello_world.html" />
- 
+
 <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
 
 
 <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
-  
+
 
     <div class="document">
     <div class="documentwrapper">
@@ -25497,12 +25497,12 @@ snapshots['test_build_all_docs 71'] = '''
     </ul>
 </nav>
             </div>
-            
 
-            
+
+
 
             <div class="body" role="main">
-                
+
   <div class="section" id="hello-dag">
 <h1>Hello, DAG<a class="headerlink" href="#hello-dag" title="Permalink to this headline">¶</a></h1>
 <p>One of the core capabitilies of dagster is the ability to express data pipelines as arbitrary
@@ -25614,7 +25614,7 @@ topology and see how dagster determines the execution order of a pipeline.</p>
     </ul>
 </nav>
             </div>
-            
+
         </div>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -25638,11 +25638,11 @@ topology and see how dagster determines the execution order of a pipeline.</p>
     </div>
 <div class="footer">
     &copy; 2019, Elementl, Inc.
-    
+
     |
     Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
     &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-    
+
     |
     <a href="../../../_sources/sections/learn/tutorial/hello_dag.rst.txt" rel="nofollow">Page source</a>
 </div>
@@ -25672,14 +25672,14 @@ snapshots['test_build_all_docs 72'] = '''
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Hello, DAG" href="hello_dag.html" />
     <link rel="prev" title="Tutorial" href="index.html" />
- 
+
 <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
 
 
 <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
-  
+
 
     <div class="document">
     <div class="documentwrapper">
@@ -25702,12 +25702,12 @@ snapshots['test_build_all_docs 72'] = '''
     </ul>
 </nav>
             </div>
-            
 
-            
+
+
 
             <div class="body" role="main">
-                
+
   <div class="section" id="hello-world">
 <h1>Hello, World<a class="headerlink" href="#hello-world" title="Permalink to this headline">¶</a></h1>
 <p>See <a class="reference internal" href="../../install/install.html"><span class="doc">Install</span></a> for instructions installing dagster (the core library) and dagit (the
@@ -25859,7 +25859,7 @@ at all. Just add a few lines to <cite>hello_world.py</cite> (highlighted in yell
     </ul>
 </nav>
             </div>
-            
+
         </div>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -25883,11 +25883,11 @@ at all. Just add a few lines to <cite>hello_world.py</cite> (highlighted in yell
     </div>
 <div class="footer">
     &copy; 2019, Elementl, Inc.
-    
+
     |
     Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
     &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-    
+
     |
     <a href="../../../_sources/sections/learn/tutorial/hello_world.rst.txt" rel="nofollow">Page source</a>
 </div>
@@ -25917,14 +25917,14 @@ snapshots['test_build_all_docs 73'] = '''
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Hello, World" href="hello_world.html" />
     <link rel="prev" title="Learn" href="../learn.html" />
- 
+
 <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
 
 
 <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
-  
+
 
     <div class="document">
     <div class="documentwrapper">
@@ -25947,12 +25947,12 @@ snapshots['test_build_all_docs 73'] = '''
     </ul>
 </nav>
             </div>
-            
 
-            
+
+
 
             <div class="body" role="main">
-                
+
   <div class="section" id="tutorial">
 <h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
@@ -25998,7 +25998,7 @@ snapshots['test_build_all_docs 73'] = '''
     </ul>
 </nav>
             </div>
-            
+
         </div>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -26022,11 +26022,11 @@ snapshots['test_build_all_docs 73'] = '''
     </div>
 <div class="footer">
     &copy; 2019, Elementl, Inc.
-    
+
     |
     Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
     &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-    
+
     |
     <a href="../../../_sources/sections/learn/tutorial/index.rst.txt" rel="nofollow">Page source</a>
 </div>
@@ -26056,14 +26056,14 @@ snapshots['test_build_all_docs 74'] = '''
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Configuration" href="config.html" />
     <link rel="prev" title="An actual DAG" href="actual_dag.html" />
- 
+
 <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
 
 
 <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
-  
+
 
     <div class="document">
     <div class="documentwrapper">
@@ -26086,12 +26086,12 @@ snapshots['test_build_all_docs 74'] = '''
     </ul>
 </nav>
             </div>
-            
 
-            
+
+
 
             <div class="body" role="main">
-                
+
   <div class="section" id="inputs">
 <h1>Inputs<a class="headerlink" href="#inputs" title="Permalink to this headline">¶</a></h1>
 <p>So far we have only demonstrated pipelines whose solids yield hardcoded values and then flow them
@@ -26289,7 +26289,7 @@ built-in <code class="docutils literal notranslate"><span class="pre">String</sp
     </ul>
 </nav>
             </div>
-            
+
         </div>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -26313,11 +26313,11 @@ built-in <code class="docutils literal notranslate"><span class="pre">String</sp
     </div>
 <div class="footer">
     &copy; 2019, Elementl, Inc.
-    
+
     |
     Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
     &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-    
+
     |
     <a href="../../../_sources/sections/learn/tutorial/inputs.rst.txt" rel="nofollow">Page source</a>
 </div>
@@ -26347,14 +26347,14 @@ snapshots['test_build_all_docs 75'] = '''
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Reusable Solids" href="reusable_solids.html" />
     <link rel="prev" title="Expectations" href="expectations.html" />
- 
+
 <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
 
 
 <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
-  
+
 
     <div class="document">
     <div class="documentwrapper">
@@ -26377,12 +26377,12 @@ snapshots['test_build_all_docs 75'] = '''
     </ul>
 </nav>
             </div>
-            
 
-            
+
+
 
             <div class="body" role="main">
-                
+
   <div class="section" id="multiple-outputs">
 <h1>Multiple Outputs<a class="headerlink" href="#multiple-outputs" title="Permalink to this headline">¶</a></h1>
 <p>So far all of our examples have been solids that have a single output. But
@@ -26641,7 +26641,7 @@ common data pipeline work.</p>
     </ul>
 </nav>
             </div>
-            
+
         </div>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -26665,11 +26665,11 @@ common data pipeline work.</p>
     </div>
 <div class="footer">
     &copy; 2019, Elementl, Inc.
-    
+
     |
     Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
     &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-    
+
     |
     <a href="../../../_sources/sections/learn/tutorial/multiple_outputs.rst.txt" rel="nofollow">Page source</a>
 </div>
@@ -26699,14 +26699,14 @@ snapshots['test_build_all_docs 76'] = '''
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="User-Defined Types &amp; Input/Output Schemas" href="types.html" />
     <link rel="prev" title="Repositories" href="repos.html" />
- 
+
 <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
 
 
 <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
-  
+
 
     <div class="document">
     <div class="documentwrapper">
@@ -26729,12 +26729,12 @@ snapshots['test_build_all_docs 76'] = '''
     </ul>
 </nav>
             </div>
-            
 
-            
+
+
 
             <div class="body" role="main">
-                
+
   <div class="section" id="pipeline-cli-execution">
 <h1>Pipeline CLI Execution<a class="headerlink" href="#pipeline-cli-execution" title="Permalink to this headline">¶</a></h1>
 <p>Up until now we’ve been focusing on using the dagit tool for executing pipelines. However, we
@@ -26936,7 +26936,7 @@ in pipelines.</p>
     </ul>
 </nav>
             </div>
-            
+
         </div>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -26960,11 +26960,11 @@ in pipelines.</p>
     </div>
 <div class="footer">
     &copy; 2019, Elementl, Inc.
-    
+
     |
     Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
     &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-    
+
     |
     <a href="../../../_sources/sections/learn/tutorial/pipeline_cli_execution.rst.txt" rel="nofollow">Page source</a>
 </div>
@@ -26994,14 +26994,14 @@ snapshots['test_build_all_docs 77'] = '''
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Pipeline CLI Execution" href="pipeline_cli_execution.html" />
     <link rel="prev" title="Resources" href="resources.html" />
- 
+
 <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
 
 
 <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
-  
+
 
     <div class="document">
     <div class="documentwrapper">
@@ -27024,12 +27024,12 @@ snapshots['test_build_all_docs 77'] = '''
     </ul>
 </nav>
             </div>
-            
 
-            
+
+
 
             <div class="body" role="main">
-                
+
   <div class="section" id="repositories">
 <h1>Repositories<a class="headerlink" href="#repositories" title="Permalink to this headline">¶</a></h1>
 <p>Dagster is a not just a programming model for pipelines, it is also a platform for
@@ -27141,7 +27141,7 @@ with swappable config.</p>
     </ul>
 </nav>
             </div>
-            
+
         </div>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -27165,11 +27165,11 @@ with swappable config.</p>
     </div>
 <div class="footer">
     &copy; 2019, Elementl, Inc.
-    
+
     |
     Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
     &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-    
+
     |
     <a href="../../../_sources/sections/learn/tutorial/repos.rst.txt" rel="nofollow">Page source</a>
 </div>
@@ -27199,14 +27199,14 @@ snapshots['test_build_all_docs 78'] = '''
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Repositories" href="repos.html" />
     <link rel="prev" title="Execution Context" href="execution_context.html" />
- 
+
 <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
 
 
 <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
-  
+
 
     <div class="document">
     <div class="documentwrapper">
@@ -27229,12 +27229,12 @@ snapshots['test_build_all_docs 78'] = '''
     </ul>
 </nav>
             </div>
-            
 
-            
+
+
 
             <div class="body" role="main">
-                
+
   <div class="section" id="resources">
 <h1>Resources<a class="headerlink" href="#resources" title="Permalink to this headline">¶</a></h1>
 <p>We’ve already learned about logging through the context object. We can also use the context object
@@ -27387,7 +27387,7 @@ manage collections of multiple dagster pipelines.</p>
     </ul>
 </nav>
             </div>
-            
+
         </div>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -27411,11 +27411,11 @@ manage collections of multiple dagster pipelines.</p>
     </div>
 <div class="footer">
     &copy; 2019, Elementl, Inc.
-    
+
     |
     Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
     &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-    
+
     |
     <a href="../../../_sources/sections/learn/tutorial/resources.rst.txt" rel="nofollow">Page source</a>
 </div>
@@ -27445,14 +27445,14 @@ snapshots['test_build_all_docs 79'] = '''
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Unit-testing Pipelines" href="unittesting.html" />
     <link rel="prev" title="Multiple Outputs" href="multiple_outputs.html" />
- 
+
 <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
 
 
 <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
-  
+
 
     <div class="document">
     <div class="documentwrapper">
@@ -27475,12 +27475,12 @@ snapshots['test_build_all_docs 79'] = '''
     </ul>
 </nav>
             </div>
-            
 
-            
+
+
 
             <div class="body" role="main">
-                
+
   <div class="section" id="reusable-solids">
 <h1>Reusable Solids<a class="headerlink" href="#reusable-solids" title="Permalink to this headline">¶</a></h1>
 <p>So far we have been using solids tailor-made for each pipeline they were resident in, and have
@@ -27649,7 +27649,7 @@ to cloud storage, unzipping files, etc.</p>
     </ul>
 </nav>
             </div>
-            
+
         </div>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -27673,11 +27673,11 @@ to cloud storage, unzipping files, etc.</p>
     </div>
 <div class="footer">
     &copy; 2019, Elementl, Inc.
-    
+
     |
     Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
     &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-    
+
     |
     <a href="../../../_sources/sections/learn/tutorial/reusable_solids.rst.txt" rel="nofollow">Page source</a>
 </div>
@@ -27707,14 +27707,14 @@ snapshots['test_build_all_docs 80'] = '''
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Expectations" href="expectations.html" />
     <link rel="prev" title="Pipeline CLI Execution" href="pipeline_cli_execution.html" />
- 
+
 <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
 
 
 <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
-  
+
 
     <div class="document">
     <div class="documentwrapper">
@@ -27737,12 +27737,12 @@ snapshots['test_build_all_docs 80'] = '''
     </ul>
 </nav>
             </div>
-            
 
-            
+
+
 
             <div class="body" role="main">
-                
+
   <div class="section" id="user-defined-types-input-output-schemas">
 <h1>User-Defined Types &amp; Input/Output Schemas<a class="headerlink" href="#user-defined-types-input-output-schemas" title="Permalink to this headline">¶</a></h1>
 <p>Throughout the tutorial you have seen the use of builtins such as <a class="reference internal" href="../../api/apidocs/types.html#dagster.Int" title="dagster.Int"><code class="xref py py-class docutils literal notranslate"><span class="pre">Int</span></code></a>
@@ -27957,7 +27957,7 @@ given output any number of times in any number of formats.</p>
     </ul>
 </nav>
             </div>
-            
+
         </div>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -27981,11 +27981,11 @@ given output any number of times in any number of formats.</p>
     </div>
 <div class="footer">
     &copy; 2019, Elementl, Inc.
-    
+
     |
     Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
     &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-    
+
     |
     <a href="../../../_sources/sections/learn/tutorial/types.rst.txt" rel="nofollow">Page source</a>
 </div>
@@ -28015,14 +28015,14 @@ snapshots['test_build_all_docs 81'] = '''
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Dagstermill" href="dagstermill.html" />
     <link rel="prev" title="Reusable Solids" href="reusable_solids.html" />
- 
+
 <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
 
 
 <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
-  
+
 
     <div class="document">
     <div class="documentwrapper">
@@ -28045,12 +28045,12 @@ snapshots['test_build_all_docs 81'] = '''
     </ul>
 </nav>
             </div>
-            
 
-            
+
+
 
             <div class="body" role="main">
-                
+
   <div class="section" id="unit-testing-pipelines">
 <h1>Unit-testing Pipelines<a class="headerlink" href="#unit-testing-pipelines" title="Permalink to this headline">¶</a></h1>
 <p>Historically in production data engineering systems, unit testing data pipelines is quite difficult
@@ -28221,7 +28221,7 @@ the <code class="docutils literal notranslate"><span class="pre">execute_solids<
     </ul>
 </nav>
             </div>
-            
+
         </div>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -28245,11 +28245,11 @@ the <code class="docutils literal notranslate"><span class="pre">execute_solids<
     </div>
 <div class="footer">
     &copy; 2019, Elementl, Inc.
-    
+
     |
     Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
     &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-    
+
     |
     <a href="../../../_sources/sections/learn/tutorial/unittesting.rst.txt" rel="nofollow">Page source</a>
 </div>
@@ -28279,14 +28279,14 @@ snapshots['test_build_all_docs 82'] = '''
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Community" href="../community/community.html" />
     <link rel="prev" title="Utilities" href="../api/apidocs/utilities.html" />
- 
+
 <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
 
 
 <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
-  
+
 
     <div class="document">
     <div class="documentwrapper">
@@ -28309,12 +28309,12 @@ snapshots['test_build_all_docs 82'] = '''
     </ul>
 </nav>
             </div>
-            
 
-            
+
+
 
             <div class="body" role="main">
-                
+
   <div class="section" id="reference">
 <h1>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h1>
 <p>As you get started with Dagster, you’ll find that there are a number of important concepts
@@ -28528,7 +28528,7 @@ may often also be shimmed through config. Inputs are defined using the
     </ul>
 </nav>
             </div>
-            
+
         </div>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -28567,11 +28567,11 @@ may often also be shimmed through config. Inputs are defined using the
     </div>
 <div class="footer">
     &copy; 2019, Elementl, Inc.
-    
+
     |
     Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
     &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-    
+
     |
     <a href="../../_sources/sections/reference/reference.rst.txt" rel="nofollow">Page source</a>
 </div>
