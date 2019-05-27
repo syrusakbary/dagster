@@ -217,9 +217,9 @@ if __name__ == "__main__":
         .build(),
         StepBuilder("black")
         # black 18.9b0 doesn't support py27-compatible formatting of the below invocation (omitting
-        # the trailing comma after **check.opt_dict_param...) -- black 19.3b0 supports multiple python
-        # versions, but currently doesn't know what to do with from __future__ import print_function --
-        # see https://github.com/ambv/black/issues/768
+        # the trailing comma after **check.opt_dict_param...) -- black 19.3b0 supports multiple
+        # python versions, but currently doesn't know what to do with from __future__ import
+        # print_function -- see https://github.com/ambv/black/issues/768
         .run("pip install black==18.9b0", "make check_black")
         .on_python_image(SupportedPython.V3_7)
         .build(),
@@ -260,12 +260,22 @@ if __name__ == "__main__":
     steps += python_modules_tox_tests("dagster-graphql")
     steps += python_modules_tox_tests("dagster-dask")
     steps += python_modules_tox_tests("dagstermill")
-    steps += python_modules_tox_tests("libraries/dagster-pandas")
-    steps += python_modules_tox_tests("libraries/dagster-ge")
-    steps += python_modules_tox_tests("libraries/dagster-aws")
-    steps += python_modules_tox_tests("libraries/dagster-slack")
-    steps += python_modules_tox_tests("libraries/dagster-snowflake")
-    steps += python_modules_tox_tests("libraries/dagster-spark")
+
+    # NOTE: Per https://github.com/dagster-io/dagster/issues/1388 update this list when adding a new
+    # library!
+    for library in [
+        'dagster-aws',
+        'dagster-datadog',
+        'dagster-gcp',
+        'dagster-ge',
+        'dagster-pagerduty',
+        'dagster-pandas',
+        'dagster-slack',
+        'dagster-snowflake',
+        'dagster-spark',
+    ]:
+        steps += python_modules_tox_tests("libraries/{library}".format(library=library))
+
     steps += examples_tests()
     steps += [
         wait_step(),  # wait for all previous steps to finish
