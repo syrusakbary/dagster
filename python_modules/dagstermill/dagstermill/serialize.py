@@ -1,11 +1,7 @@
 from enum import Enum
 
 from dagster import check, RuntimeType, seven
-from dagster.core.types.marshal import (
-    deserialize_from_file,
-    PickleSerializationStrategy,
-    serialize_to_file,
-)
+from dagster.core.types.marshal import PickleSerDe
 
 
 PICKLE_PROTOCOL = 2
@@ -19,14 +15,14 @@ def is_json_serializable(value):
         return False
 
 
-def read_value(context, runtime_type, value):
+def read_value(runtime_type, value):
     check.inst_param(runtime_type, 'runtime_type', RuntimeType)
     if runtime_type.is_scalar:
         return value
     elif runtime_type.is_any and is_json_serializable(value):
         return value
-    elif runtime_type.serialization_strategy:
-        return deserialize_from_file(context, runtime_type.serialization_strategy, value)
+    elif runtime_type.serde:
+        return runtime_type.serde.deserialize_from_file(value)
     else:
         check.failed(
             'Unsupported type {name}: no persistence strategy defined'.format(
@@ -35,14 +31,14 @@ def read_value(context, runtime_type, value):
         )
 
 
-def write_value(context, runtime_type, value, target_file):
+def write_value(runtime_type, value, target_file):
     check.inst_param(runtime_type, 'runtime_type', RuntimeType)
     if runtime_type.is_scalar:
         return value
     elif runtime_type.is_any and is_json_serializable(value):
         return value
-    elif runtime_type.serialization_strategy:
-        serialize_to_file(context, runtime_type.serialization_strategy, value, target_file)
+    elif runtime_type.serde:
+        runtime_type.serde.serialize_to_file(value, target_file)
         return target_file
     else:
         check.failed('Unsupported type {name}'.format(name=runtime_type.name))
@@ -81,9 +77,7 @@ def runtime_type_to_enum(runtime_type):
         return SerializableRuntimeType.SCALAR
     elif runtime_type.is_any:
         return SerializableRuntimeType.ANY
-    elif runtime_type.serialization_strategy and isinstance(
-        runtime_type.serialization_strategy, PickleSerializationStrategy
-    ):
+    elif runtime_type.serde and isinstance(runtime_type.serde, PickleSerDe):
         return SerializableRuntimeType.PICKLE_SERIALIZABLE
 
     return SerializableRuntimeType.NONE

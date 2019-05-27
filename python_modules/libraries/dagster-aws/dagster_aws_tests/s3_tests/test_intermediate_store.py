@@ -12,7 +12,7 @@ from dagster import (
     OutputDefinition,
     PipelineDefinition,
     RunConfig,
-    SerializationStrategy,
+    SerDe,
     String,
     check,
     lambda_solid,
@@ -41,20 +41,18 @@ from dagster_aws.s3.intermediate_store import (
 )
 
 
-class UppercaseSerializationStrategy(SerializationStrategy):  # pylint: disable=no-init
-    def serialize_value(self, _context, value, write_file_obj):
+class UppercaseSerDe(SerDe):  # pylint: disable=no-init
+    def serialize(self, value, write_file_obj):
         return write_file_obj.write(bytes(value.upper().encode('utf-8')))
 
-    def deserialize_value(self, _context, read_file_obj):
+    def deserialize(self, read_file_obj):
         return read_file_obj.read().decode('utf-8').lower()
 
 
 class LowercaseString(RuntimeType):
     def __init__(self):
         super(LowercaseString, self).__init__(
-            'lowercase_string',
-            'LowercaseString',
-            serialization_strategy=UppercaseSerializationStrategy(),
+            'lowercase_string', 'LowercaseString', serde=UppercaseSerDe()
         )
 
 

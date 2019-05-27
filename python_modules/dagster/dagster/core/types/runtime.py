@@ -15,7 +15,7 @@ from .config import Nullable as ConfigNullable
 
 from .config_schema import InputSchema, OutputSchema
 
-from .marshal import SerializationStrategy, PickleSerializationStrategy
+from .marshal import SerDe, PickleSerDe
 from .dagster_type import check_dagster_type_param
 from .wrapping import WrappingListType, WrappingNullableType
 
@@ -41,7 +41,7 @@ class RuntimeType(object):
         description=None,
         input_schema=None,
         output_schema=None,
-        serialization_strategy=None,
+        serde=None,
         storage_plugins=None,
     ):
 
@@ -59,12 +59,7 @@ class RuntimeType(object):
         self.description = check.opt_str_param(description, 'description')
         self.input_schema = check.opt_inst_param(input_schema, 'input_schema', InputSchema)
         self.output_schema = check.opt_inst_param(output_schema, 'output_schema', OutputSchema)
-        self.serialization_strategy = check.opt_inst_param(
-            serialization_strategy,
-            'serialization_strategy',
-            SerializationStrategy,
-            PickleSerializationStrategy(),
-        )
+        self.serde = check.opt_inst_param(serde, 'serde', SerDe, PickleSerDe())
         self.storage_plugins = check.opt_dict_param(storage_plugins, 'storage_plugins')
 
         self.is_builtin = check.bool_param(is_builtin, 'is_builtin')
