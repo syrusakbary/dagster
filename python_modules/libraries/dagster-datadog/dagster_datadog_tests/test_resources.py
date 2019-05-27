@@ -7,10 +7,6 @@ except ImportError:
     import mock
 
 
-# To support this test, we need to do the following:
-# 1. Have CircleCI publish Scala/Spark jars when that code changes
-# 2. Ensure we have Spark available to CircleCI
-# 3. Include example / test data in this repository
 @mock.patch('datadog.statsd.timing')
 @mock.patch('datadog.statsd.timed')
 @mock.patch('datadog.statsd.service_check')
