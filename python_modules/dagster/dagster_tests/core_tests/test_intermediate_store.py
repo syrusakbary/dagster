@@ -6,8 +6,8 @@ import uuid
 import pytest
 
 from dagster import check, String, Nullable, seven, List, Bool
-from dagster.core.storage.intermediate_store import TypeStoragePlugin
 from dagster.core.storage.intermediate_store import FileSystemIntermediateStore
+from dagster.core.storage.type_storage import TypeStoragePlugin
 from dagster.core.types.marshal import SerDe
 from dagster.core.types.runtime import (
     Bool as RuntimeBool,
