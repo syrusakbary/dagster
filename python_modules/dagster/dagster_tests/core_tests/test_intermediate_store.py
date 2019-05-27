@@ -6,7 +6,8 @@ import uuid
 import pytest
 
 from dagster import check, String, Nullable, seven, List, Bool
-from dagster.core.storage.intermediate_store import FileSystemIntermediateStore, TypeStoragePlugin
+from dagster.core.storage.intermediate_store import TypeStoragePlugin
+from dagster.core.storage.intermediate_store import FileSystemIntermediateStore
 from dagster.core.types.marshal import SerDe
 from dagster.core.types.runtime import (
     Bool as RuntimeBool,
@@ -59,7 +60,7 @@ def test_file_system_intermediate_store():
             intermediate_store.set_object(True, context, RuntimeBool.inst(), ['true'])
             assert intermediate_store.has_object(context, ['true'])
             assert intermediate_store.get_object(context, RuntimeBool.inst(), ['true']) is True
-            assert intermediate_store.url_for_paths(['true']).startswith('file:///')
+            assert intermediate_store.uri_for_paths(['true']).startswith('file:///')
             assert intermediate_store.rm_object(context, ['true']) is None
             assert intermediate_store.rm_object(context, ['true']) is None
             assert intermediate_store.rm_object(context, ['dslkfhjsdflkjfs']) is None
