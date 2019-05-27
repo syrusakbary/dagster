@@ -87,7 +87,7 @@ from dagster.core.types.decorator import dagster_type, as_dagster_type
 
 from dagster.core.types.evaluator import DagsterEvaluateConfigValueError
 
-from dagster.core.types.marshal import SerializationStrategy
+from dagster.core.types.marshal import SerDe
 
 from dagster.core.types.runtime import Bytes, RuntimeType
 
@@ -170,7 +170,7 @@ __all__ = [
     'PythonObjectType',
     'Selector',
     'String',
-    'SerializationStrategy',
+    'SerDe',
     'Nothing',
     # type creation
     'as_dagster_type',

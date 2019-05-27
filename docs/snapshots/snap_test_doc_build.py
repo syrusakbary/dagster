@@ -21029,7 +21029,7 @@ builtin types above.</p>
 <h2>Making New Types<a class="headerlink" href="#making-new-types" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="dagster.as_dagster_type">
-<code class="descclassname">dagster.</code><code class="descname">as_dagster_type</code><span class="sig-paren">(</span><em>existing_type</em>, <em>name=None</em>, <em>description=None</em>, <em>input_schema=None</em>, <em>output_schema=None</em>, <em>serialization_strategy=None</em>, <em>storage_plugins=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/dagster/core/types/decorator.html#as_dagster_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dagster.as_dagster_type" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dagster.</code><code class="descname">as_dagster_type</code><span class="sig-paren">(</span><em>existing_type</em>, <em>name=None</em>, <em>description=None</em>, <em>input_schema=None</em>, <em>output_schema=None</em>, <em>serde=None</em>, <em>storage_plugins=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/dagster/core/types/decorator.html#as_dagster_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dagster.as_dagster_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>Takes a python cls and creates a type for it in the Dagster domain.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -21041,7 +21041,7 @@ builtin types above.</p>
 can map config data to a value of this type.</p></li>
 <li><p><strong>output_schema</strong> (<em>Optiona</em><em>[</em><em>OutputSchema</em><em>]</em>) – An instance of a class that inherits from <code class="xref py py-class docutils literal notranslate"><span class="pre">OutputSchema</span></code> that
 can map config data to persisting values of this type.</p></li>
-<li><p><strong>serialization_strategy</strong> (<em>Optional</em><em>[</em><em>SerializationStrategy</em><em>]</em>) – The default behavior for how to serialize this value for
+<li><p><strong>serde</strong> (<em>Optional</em><em>[</em><em>SerDe</em><em>]</em>) – The default behavior for how to serialize this value for
 persisting between execution steps.</p></li>
 <li><p><strong>storage_plugins</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>[</em><a class="reference internal" href="execution.html#dagster.RunStorageMode" title="dagster.RunStorageMode"><em>RunStorageMode</em></a><em>, </em><em>TypeStoragePlugin</em><em>]</em><em>]</em>) – Storage type specific overrides for the serialization strategy.
 This allows for storage specific optimzations such as effecient
@@ -21053,7 +21053,7 @@ distributed storage on S3.</p></li>
 
 <dl class="function">
 <dt id="dagster.dagster_type">
-<code class="descclassname">dagster.</code><code class="descname">dagster_type</code><span class="sig-paren">(</span><em>name=None</em>, <em>description=None</em>, <em>input_schema=None</em>, <em>output_schema=None</em>, <em>serialization_strategy=None</em>, <em>storage_plugins=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/dagster/core/types/decorator.html#dagster_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dagster.dagster_type" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dagster.</code><code class="descname">dagster_type</code><span class="sig-paren">(</span><em>name=None</em>, <em>description=None</em>, <em>input_schema=None</em>, <em>output_schema=None</em>, <em>serde=None</em>, <em>storage_plugins=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/dagster/core/types/decorator.html#dagster_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dagster.dagster_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>Decorator version of as_dagster_type. See documentation for <a class="reference internal" href="#dagster.as_dagster_type" title="dagster.as_dagster_type"><code class="xref py py-func docutils literal notranslate"><span class="pre">as_dagster_type()</span></code></a> .</p>
 </dd></dl>
 
@@ -21064,7 +21064,7 @@ distributed storage on S3.</p></li>
 
 <dl class="class">
 <dt id="dagster.RuntimeType">
-<em class="property">class </em><code class="descclassname">dagster.</code><code class="descname">RuntimeType</code><span class="sig-paren">(</span><em>key</em>, <em>name</em>, <em>is_builtin=False</em>, <em>description=None</em>, <em>input_schema=None</em>, <em>output_schema=None</em>, <em>serialization_strategy=None</em>, <em>storage_plugins=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/dagster/core/types/runtime.html#RuntimeType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dagster.RuntimeType" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">dagster.</code><code class="descname">RuntimeType</code><span class="sig-paren">(</span><em>key</em>, <em>name</em>, <em>is_builtin=False</em>, <em>description=None</em>, <em>input_schema=None</em>, <em>output_schema=None</em>, <em>serde=None</em>, <em>storage_plugins=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/dagster/core/types/runtime.html#RuntimeType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dagster.RuntimeType" title="Permalink to this definition">¶</a></dt>
 <dd><p>The class backing DagsterTypes as they are used during execution.</p>
 </dd></dl>
 

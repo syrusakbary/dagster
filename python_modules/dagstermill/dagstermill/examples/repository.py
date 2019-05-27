@@ -17,7 +17,7 @@ from dagster import (
     lambda_solid,
     solid,
     as_dagster_type,
-    SerializationStrategy,
+    SerDe,
 )
 from dagster_pandas import DataFrame
 
@@ -188,21 +188,17 @@ def define_tutorial_pipeline():
     )
 
 
-# Placeholder class to cause the unregistered notebook solid to fail -- custom serialization
-# strategies require repository registration
-class ComplexSerializationStrategy(SerializationStrategy):  # pylint: disable=no-init
-    def serialize_value(self, context, value, write_file_obj):
+# Placeholder class to cause the unregistered notebook solid to fail -- custom serdes require
+# repository registration
+class ComplexSerDe(SerDe):  # pylint: disable=no-init
+    def serialize(self, value, write_file_obj):
         pass  # pragma: nocover
 
-    def deserialize_value(self, context, read_file_obj):
+    def deserialize(self, read_file_obj):
         pass  # pragma: nocover
 
 
-complex_serialization_strategy = ComplexSerializationStrategy()
-
-ComplexDagsterType = as_dagster_type(
-    pd.DataFrame, serialization_strategy=complex_serialization_strategy
-)
+ComplexDagsterType = as_dagster_type(pd.DataFrame, serde=ComplexSerDe())
 
 
 def no_repo_reg_solid():

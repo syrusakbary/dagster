@@ -1,6 +1,6 @@
 from dagster import check
 from .config_schema import InputSchema, OutputSchema
-from .marshal import SerializationStrategy, PickleSerializationStrategy
+from .marshal import SerDe, PickleSerDe
 from .runtime import PythonObjectType, RuntimeType
 
 
@@ -19,7 +19,7 @@ def _decorate_as_dagster_type(
     description,
     input_schema=None,
     output_schema=None,
-    serialization_strategy=None,
+    serde=None,
     storage_plugins=None,
 ):
     _ObjectType = _create_object_type_class(
@@ -29,7 +29,7 @@ def _decorate_as_dagster_type(
         python_type=bare_cls,
         input_schema=input_schema,
         output_schema=output_schema,
-        serialization_strategy=serialization_strategy,
+        serde=serde,
         storage_plugins=storage_plugins,
     )
 
@@ -44,7 +44,7 @@ def dagster_type(
     description=None,
     input_schema=None,
     output_schema=None,
-    serialization_strategy=None,
+    serde=None,
     storage_plugins=None,
 ):
     '''
@@ -61,7 +61,7 @@ def dagster_type(
             description=description,
             input_schema=input_schema,
             output_schema=output_schema,
-            serialization_strategy=serialization_strategy,
+            serde=serde,
             storage_plugins=storage_plugins,
         )
 
@@ -101,7 +101,7 @@ def as_dagster_type(
     description=None,
     input_schema=None,
     output_schema=None,
-    serialization_strategy=None,
+    serde=None,
     storage_plugins=None,
 ):
     '''
@@ -120,7 +120,7 @@ def as_dagster_type(
             An instance of a class that inherits from :py:class:`OutputSchema` that
             can map config data to persisting values of this type.
 
-        serialization_strategy (Optional[SerializationStrategy]):
+        serde (Optional[SerDe]):
             The default behavior for how to serialize this value for
             persisting between execution steps.
 
@@ -134,11 +134,8 @@ def as_dagster_type(
     check.opt_str_param(description, 'description')
     check.opt_inst_param(input_schema, 'input_schema', InputSchema)
     check.opt_inst_param(output_schema, 'output_schema', OutputSchema)
-    check.opt_inst_param(serialization_strategy, 'serialization_strategy', SerializationStrategy)
+    check.opt_inst_param(serde, 'serde', SerDe, default=PickleSerDe())
     storage_plugins = check.opt_dict_param(storage_plugins, 'storage_plugins')
-
-    if serialization_strategy is None:
-        serialization_strategy = PickleSerializationStrategy()
 
     name = existing_type.__name__ if name is None else name
 
@@ -149,6 +146,6 @@ def as_dagster_type(
         description=description,
         input_schema=input_schema,
         output_schema=output_schema,
-        serialization_strategy=serialization_strategy,
+        serde=serde,
         storage_plugins=storage_plugins,
     )
