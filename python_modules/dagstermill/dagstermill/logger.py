@@ -68,10 +68,6 @@ else:
 
 
 def init_db(sqlite_db_path):
-    if not safe_isfile(sqlite_db_path):
-        # touch
-        with open(sqlite_db_path, 'w') as _fd:
-            pass
     conn = sqlite3.connect(sqlite_db_path)
     cursor = conn.cursor()
     cursor.execute(CREATE_LOG_TABLE_STATEMENT)
