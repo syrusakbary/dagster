@@ -163,7 +163,7 @@ class SparkConfig:
     def split_path(self):
         return self.path.split('.')
 
-    def print(self, printer):
+    def write(self, printer):
         config_type = CONFIG_TYPES.get(self.path, ConfigType.STRING).value
 
         printer.append('Field(')
@@ -184,9 +184,9 @@ class SparkConfigNode:
         self.value = value
         self.children = {}
 
-    def print(self, printer):
+    def write(self, printer):
         if not self.children:
-            self.value.print(printer)
+            self.value.write(printer)
         else:
             if self.value:
                 retdict = {'root': self.value}
@@ -204,7 +204,7 @@ class SparkConfigNode:
                         for (k, v) in retdict.items():
                             with printer.with_indent():
                                 printer.append("'{}': ".format(k))
-                            v.print(printer)
+                            v.write(printer)
 
                             printer.line(',')
                     printer.line('}')
@@ -257,7 +257,7 @@ def run(output_file):
         printer.line('def spark_config():')
         with printer.with_indent():
             printer.append('return ')
-            result.print(printer)
+            result.write(printer)
         printer.line('# pylint: enable=line-too-long')
         with open(output_file, 'wb') as f:
             f.write(printer.read().strip().encode())
