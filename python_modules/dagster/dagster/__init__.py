@@ -91,6 +91,8 @@ from dagster.core.types.marshal import SerializationStrategy
 
 from dagster.core.types.runtime import Bytes, RuntimeType
 
+from dagster.utils import file_relative_path
+
 from dagster.utils.test import execute_solid, execute_solids
 
 from .version import __version__
@@ -178,4 +180,5 @@ __all__ = [
     'RuntimeType',
     'ConfigType',
     'ConfigScalar',
+    'file_relative_path',
 ]
