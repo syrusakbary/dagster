@@ -17,6 +17,9 @@ from .yaml_utils import load_yaml_from_glob_list, load_yaml_from_globs, load_yam
 PICKLE_PROTOCOL = 2
 
 
+DEFAULT_REPOSITORY_YAML_FILENAME = 'repository.yaml'
+
+
 def script_relative_path(file_path):
     '''
     Useful for testing with local files. Use a path relative to where the
@@ -28,7 +31,9 @@ def script_relative_path(file_path):
 
     check.str_param(file_path, 'file_path')
     scriptdir = inspect.stack()[1][1]
-    return os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(scriptdir)), file_path))
+    return os.path.abspath(
+        os.path.join(os.path.dirname(os.path.abspath(scriptdir)), os.sep.join(file_path.split('/')))
+    )
 
 
 # Adapted from https://github.com/okunishinishi/python-stringcase/blob/master/stringcase.py
