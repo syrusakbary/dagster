@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  dask-scheduler:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: dagster-dask-test:py${PYTHON_VERSION}
+    hostname: dask-scheduler
+    ports:
+      - "8786:8786"
+      - "8787:8787"
+    environment:
+      AWS_ACCESS_KEY_ID:
+      AWS_SECRET_ACCESS_KEY:
+    command: ["dask-scheduler"]
+
+  dask-worker:
+    image: dagster-dask-test:py${PYTHON_VERSION}
+    hostname: dask-worker
+    environment:
+      AWS_ACCESS_KEY_ID:
+      AWS_SECRET_ACCESS_KEY:
+    command: ["dask-worker", "tcp://dask-scheduler:8786"]
