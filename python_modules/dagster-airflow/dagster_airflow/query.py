@@ -1,64 +1,64 @@
 # TODO need to enrich error handling as we enrich the ultimate union type for executePlan
-QUERY_TEMPLATE = ''' '
+QUERY = ''' '
 mutation(
-  $environmentConfigData: EnvironmentConfigData = {config},
-  $pipelineName: String = "{pipeline_name}",
-  $runId: String = "{run_id}",
-  $mode: String = "{mode}",
-  $stepKeys: [String!] = {step_keys}
-) {{
+  $environmentConfigData: EnvironmentConfigData,
+  $pipelineName: String,
+  $runId: String,
+  $mode: String,
+  $stepKeys: [String!]
+) {
   executePlan(
-    executionParams: {{
+    executionParams: {
       environmentConfigData: $environmentConfigData,
       mode: $mode,
-      executionMetadata: {{
+      executionMetadata: {
         runId: $runId
-      }},
-      selector: {{name: $pipelineName}},
+      },
+      selector: {name: $pipelineName},
       stepKeys: $stepKeys,
-    }}
-  ) {{
+    }
+  ) {
     __typename
-    ... on PipelineConfigValidationInvalid {{
-      pipeline {{
+    ... on PipelineConfigValidationInvalid {
+      pipeline {
         name
-      }}
-      errors {{
+      }
+      errors {
         __typename
         message
         path
         reason
-      }}
-    }}
-    ... on PipelineNotFoundError {{
+      }
+    }
+    ... on PipelineNotFoundError {
         message
         pipelineName
-    }}
-    ... on ExecutePlanSuccess {{
-      pipeline {{
+    }
+    ... on ExecutePlanSuccess {
+      pipeline {
         name
-      }}
+      }
       hasFailures
-      stepEvents {{
-        step {{
+      stepEvents {
+        step {
           key
           kind
           solidHandleID
-        }}
+        }
         __typename
-        ... on ExecutionStepOutputEvent {{
+        ... on ExecutionStepOutputEvent {
           outputName
           valueRepr
-        }}
-        ... on ExecutionStepFailureEvent {{
-          error {{
+        }
+        ... on ExecutionStepFailureEvent {
+          error {
               message
-          }}
-        }}
-      }}
-    }}
-  }}
-}}
+          }
+        }
+      }
+    }
+  }
+}
 '
 '''.strip(
     '\n'

@@ -19,7 +19,7 @@ from dagster import seven
 from dagster.seven.json import JSONDecodeError
 
 from .format import format_config_for_graphql
-from .query import QUERY_TEMPLATE
+from .query import QUERY
 
 
 DOCKER_TEMPDIR = '/tmp'
@@ -349,13 +349,15 @@ class DagsterDockerOperator(ModifiedDockerOperator, DagsterOperator):
                 ['"{step_key}"'.format(step_key=step_key) for step_key in self.step_keys]
             )
         )
-        return QUERY_TEMPLATE.format(
-            config=self.config.strip('\n'),
-            run_id=self.run_id,
-            mode=self.mode,
-            step_keys=step_keys,
-            pipeline_name=self.pipeline_name,
-        )
+        variables = {
+            'environmentConfigData': self.config.strip('\n'),
+            'mode': self.mode,
+            'pipelineName': self.pipeline_name,
+            'runId': self.run_id,
+            'stepKeys': step_keys,
+        }
+        return '{query} -v {variables}'.format(query=QUERY, variables=variables)
+
 
     def get_command(self):
         if self.command is not None and self.command.strip().find('[') == 0:
@@ -422,29 +424,26 @@ class DagsterPythonOperator(PythonOperator, DagsterOperator):
 
         def python_callable(**kwargs):
             run_id = kwargs.get('dag_run').run_id
-            query = QUERY_TEMPLATE.format(
-                config=env_config,
-                run_id=run_id,
-                mode=mode,
-                step_keys=json.dumps(step_keys),
-                pipeline_name=pipeline_name,
-            )
+            variables = {
+                'environmentConfigData': env_config,
+                'mode': mode,
+                'pipelineName': pipeline_name,
+                'runId': run_id,
+                'stepKeys': json.dumps(step_keys)
+            }
 
             # TODO: This removes config that we need to scrub for secrets, but it's very useful
             # for debugging to understand the GraphQL query that's being executed. We should update
             # to include the sanitized config.
             logging.info(
                 'Executing GraphQL query:\n'
-                + QUERY_TEMPLATE.format(
-                    config='REDACTED',
-                    run_id=run_id,
-                    mode=mode,
-                    step_keys=json.dumps(step_keys),
-                    pipeline_name=pipeline_name,
-                )
+                + QUERY
+                + '\n'
+                + 'with variables:\n'
+                + json.dumps(dict(variables, environmentConfigData='REDACTED'))
             )
 
-            res = json.loads(execute_query_from_cli(handle, query, variables=None))
+            res = json.loads(execute_query_from_cli(handle, QUERY, variables=variables))
             cls.handle_errors(res, None)
             return cls.handle_result(res)
 
