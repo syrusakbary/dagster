@@ -58,3 +58,33 @@ snapshots['test_presets_on_examples 9'] = GenericRepr("<graphql.execution.base.E
 snapshots['test_presets_on_examples 10'] = GenericRepr("<graphql.execution.base.ExecutionResult object at 0x100000000>")
 
 snapshots['test_presets_on_examples 11'] = GenericRepr("<graphql.execution.base.ExecutionResult object at 0x100000000>")
+
+snapshots['test_basic_preset_query_with_presets 1'] = {
+    'pipeline': {
+        'name': 'csv_hello_world',
+        'presets': [
+            {
+                '__typename': 'PipelinePreset',
+                'environmentConfigYaml': '''solids:
+  sum_solid:
+    inputs:
+      num: data/num_prod.csv
+''',
+                'mode': 'default',
+                'name': 'prod',
+                'solidSubset': None
+            },
+            {
+                '__typename': 'PipelinePreset',
+                'environmentConfigYaml': '''solids:
+  sum_solid:
+    inputs:
+      num: data/num.csv
+''',
+                'mode': 'default',
+                'name': 'test',
+                'solidSubset': None
+            }
+        ]
+    }
+}
