@@ -22,7 +22,7 @@ def execute_preset_query(pipeline_name, context):
 
 def test_basic_preset_query_no_presets():
     result = execute_preset_query('csv_hello_world_two', define_context())
-    assert result.data == {'pipeline': {'presets': []}}
+    assert result.data == {'pipeline': {'name': 'csv_hello_world_two', 'presets': []}}
 
 
 def test_basic_preset_query_with_presets(snapshot):
