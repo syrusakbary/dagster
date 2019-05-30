@@ -6,12 +6,8 @@ import threading
 import uuid
 
 import nbformat
-import papermill
-import scrapbook
 import six
 
-from papermill.parameterize import _find_first_tagged_cell_index
-from papermill.iorw import load_notebook_node, write_ipynb
 
 from dagster import (
     check,
@@ -35,13 +31,15 @@ from .serialize import (
     read_value,
     write_value,
 )
-from .translator import DagsterTranslator
+from .translator import get_dagster_translator
 
 
 # This is a copy-paste from papermill.parameterize.parameterize_notebook
 # Typically, papermill injects the injected-parameters cell *below* the parameters cell
 # but we want to *replace* the parameters cell, which is what this function does.
 def replace_parameters(context, nb, parameters):
+    from papermill.parameterize import _find_first_tagged_cell_index
+
     '''Assigned parameters into the appropiate place in the input notebook
 
     Args:
@@ -55,6 +53,10 @@ def replace_parameters(context, nb, parameters):
 
     # papermill method chooses translator based on kernel_name and language, but we just call the
     # DagsterTranslator to generate parameter content based on the kernel_name
+    import papermill
+
+    DagsterTranslator = get_dagster_translator()
+    papermill.translators.papermill_translators.register('python', DagsterTranslator)
     param_content = DagsterTranslator.codify(parameters)
 
     newcell = nbformat.v4.new_code_cell(source=param_content)
@@ -152,6 +154,8 @@ def _dm_solid_transform(name, notebook_path):
     check.str_param(notebook_path, 'notebook_path')
 
     def _t_fn(transform_context, inputs):
+        from papermill.iorw import load_notebook_node, write_ipynb
+
         check.inst_param(transform_context, 'transform_context', TransformExecutionContext)
         check.param_invariant(
             isinstance(transform_context.environment_dict, dict),
@@ -206,10 +210,14 @@ def _dm_solid_transform(name, notebook_path):
                 ),
             ):
                 try:
+                    import papermill
+
                     papermill.execute_notebook(intermediate_path, temp_path, log_output=True)
                 finally:
                     is_done.set()
                     log_watcher_thread.join()
+
+            import scrapbook
 
             output_nb = scrapbook.read_notebook(temp_path)
 

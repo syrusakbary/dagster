@@ -3,7 +3,6 @@ import pickle
 import uuid
 import warnings
 
-import scrapbook
 
 from dagster import check, Materialization, ModeDefinition, PipelineDefinition, RunConfig
 from dagster.core.execution.api import scoped_pipeline_context
@@ -74,6 +73,8 @@ class Manager:
         if not self.populated_by_papermill:
             return value
 
+        import scrapbook
+
         if self.solid_def is None:
             if output_name not in self.output_name_type_dict:
                 raise DagstermillError(
@@ -112,6 +113,8 @@ class Manager:
             scrapbook.glue(output_name, write_value(runtime_type, value, out_file))
 
     def yield_materialization(self, path, description):
+        import scrapbook
+
         if not self.populated_by_papermill:
             return Materialization(path, description)
 
