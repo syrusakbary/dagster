@@ -53,6 +53,8 @@ observer.start()
 
 try:
     while True:
+        if handler.process and handler.process.poll():
+            raise KeyboardInterrupt()
         time.sleep(1)
 except KeyboardInterrupt:
     handler.stop()
