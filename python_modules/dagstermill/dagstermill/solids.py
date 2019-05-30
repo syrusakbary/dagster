@@ -255,3 +255,4 @@ def define_dagstermill_solid(name, notebook_path, inputs=None, outputs=None, con
         description='This solid is backed by the notebook at {path}'.format(path=notebook_path),
         metadata={'notebook_path': notebook_path, 'kind': 'ipynb'},
     )
+

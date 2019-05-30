@@ -550,3 +550,19 @@ sfo_delays_by_destination = notebook_solid(
         )
     ],
 )
+
+
+@solid(
+    inputs=[
+        InputDefinition('april_data'),
+        InputDefinition('may_data'),
+        InputDefinition('june_data'),
+    ],
+    # config_field=Field(
+    #     Dict(fields={'subsample_pct': Field(Int, description='')})
+    #     # description='The integer percentage of rows to sample from the input dataset.'
+    # ),
+)
+def process_q2_data(_context, april_data, may_data, june_data):
+    return april_data.union(may_data).union(june_data)
+    # return q2_data.sample(False, context.solid_config['subsample_pct'] / 100.0)
