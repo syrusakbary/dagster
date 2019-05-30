@@ -509,26 +509,31 @@ def process_q2_data(context, april_data, may_data, june_data, master_cord_data):
     sampled_q2_data = q2_data.sample(
         withReplacement=False, fraction=context.solid_config['subsample_pct'] / 100.0
     )
+    sampled_q2_data.createOrReplaceTempView('q2_data')
+
     dest_prefixed_master_cord_data = do_prefix_column_names(master_cord_data, 'DEST_')
-
-    # Consider using spark SQL
-
-    master_q2_dest_data = do_join_spark_data_frames(
-        sampled_q2_data,
-        dest_prefixed_master_cord_data,
-        on_left_col='DestAirportSeqID',
-        on_right_col='DEST_AIRPORT_SEQ_ID',
-        how='left_outer',
-    )
+    dest_prefixed_master_cord_data.createOrReplaceTempView('dest_cord_data')
 
     origin_prefixed_master_cord_data = do_prefix_column_names(master_cord_data, 'ORIGIN_')
+    origin_prefixed_master_cord_data.createOrReplaceTempView('origin_cord_data')
 
-    full_data = do_join_spark_data_frames(
-        master_q2_dest_data,
-        origin_prefixed_master_cord_data,
-        on_left_col='OriginAirportSeqID',
-        on_right_col='ORIGIN_AIRPORT_SEQ_ID',
-        how='left_outer',
+    master_q2_dest_data = context.resources.spark.sql(
+        '''
+        SELECT * FROM q2_data
+        LEFT JOIN dest_cord_data ON
+        q2_data.DestAirportSeqID = dest_cord_data.DEST_AIRPORT_SEQ_ID
+        '''
+    )
+
+    master_q2_dest_data.createOrReplaceTempView('master_q2_data')
+
+    full_data = context.resources.spark.sql(
+        '''
+        SELECT * FROM master_q2_data
+        LEFT JOIN origin_cord_data ON
+        master_q2_data.OriginAirportSeqID = origin_cord_data.ORIGIN_AIRPORT_SEQ_ID
+
+        '''
     )
 
     return rename_spark_dataframe_columns(full_data, lambda c: c.lower())
