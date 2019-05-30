@@ -226,7 +226,7 @@ def format_argument_dict(arg_def_dict):
     return ', '.join(
         [
             '{name}: {type}'.format(name=name, type=arg_def.runtime_type.name)
-            for name, arg_def in arg_def_dict.items()
+            for name, arg_def in sorted(arg_def_dict.items())
         ]
     )
 

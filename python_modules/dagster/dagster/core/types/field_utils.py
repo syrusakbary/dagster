@@ -226,7 +226,7 @@ def check_user_facing_fields_dict(fields, type_name_msg):
     check.str_param(type_name_msg, 'type_name_msg')
 
     sorted_field_names = sorted(list(fields.keys()))
-    for field_name, potential_field in fields.items():
+    for field_name, potential_field in sorted(fields.items()):
         check_using_facing_field_param(
             potential_field,
             'fields',

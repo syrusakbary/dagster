@@ -21,7 +21,7 @@ def create_compute_step(pipeline_name, environment_config, solid, step_inputs, h
             StepOutput(
                 name=name, runtime_type=output_def.runtime_type, optional=output_def.optional
             )
-            for name, output_def in solid.definition.output_dict.items()
+            for name, output_def in sorted(solid.definition.output_dict.items())
         ],
         compute_fn=lambda step_context, inputs: _execute_core_transform(
             step_context.for_transform(), inputs, solid.definition.compute_fn

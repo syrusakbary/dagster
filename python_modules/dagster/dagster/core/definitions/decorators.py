@@ -82,7 +82,7 @@ class MultipleResults(namedtuple('_MultipleResults', 'results')):
         '''
         check.dict_param(result_dict, 'result_dict', key_type=str)
         results = []
-        for name, value in result_dict.items():
+        for name, value in sorted(result_dict.items()):
             results.append(Result(value, name))
         return MultipleResults(*results)
 

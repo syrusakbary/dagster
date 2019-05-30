@@ -275,7 +275,7 @@ class DependencyStructure(object):
     def depended_by_of_solid(self, solid_name):
         check.str_param(solid_name, 'solid_name')
         result = defaultdict(list)
-        for input_handle, output_handles in self._handle_dict.items():
+        for input_handle, output_handles in sorted(self._handle_dict.items()):
             for output_handle in output_handles:
                 if output_handle.solid.name == solid_name:
                     result[output_handle].append(input_handle)
@@ -309,7 +309,7 @@ class DependencyStructure(object):
         return list(self._handle_dict.keys())
 
     def items(self):
-        return self._handle_dict.items()
+        return sorted(self._handle_dict.items())
 
 
 class IDependencyDefinition(six.with_metaclass(ABCMeta)):  # pylint: disable=no-init

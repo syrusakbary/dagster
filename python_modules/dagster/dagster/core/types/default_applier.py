@@ -51,7 +51,7 @@ def apply_defaults_to_composite_type(composite_type, config_value):
 
     processed_fields = {}
 
-    for expected_field, field_def in fields.items():
+    for expected_field, field_def in sorted(fields.items()):
         if expected_field in incoming_fields:
             processed_fields[expected_field] = apply_default_values(
                 field_def.config_type, config_value[expected_field]

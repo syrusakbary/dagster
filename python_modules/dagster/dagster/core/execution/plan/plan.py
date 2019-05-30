@@ -109,7 +109,7 @@ class _PlanBuilder:
             ### 1. INPUTS
             # Create and add execution plan steps for solid inputs
             step_inputs = []
-            for input_name, input_def in solid.definition.input_dict.items():
+            for input_name, input_def in sorted(solid.definition.input_dict.items()):
                 prev_step_output_handle = get_input_source_step_handles(
                     self,
                     solid,
@@ -168,7 +168,7 @@ class _PlanBuilder:
 
             ### 3. OUTPUTS
             # Create and add execution plan steps (and output handles) for solid outputs
-            for name, output_def in solid.definition.output_dict.items():
+            for name, output_def in sorted(solid.definition.output_dict.items()):
                 subplan = create_subplan_for_output(
                     self.pipeline_name,
                     self.environment_config,

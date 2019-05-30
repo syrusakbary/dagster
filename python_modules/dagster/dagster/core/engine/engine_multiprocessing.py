@@ -65,7 +65,7 @@ def bounded_parallel_executor(step_contexts, limit):
             active_iters[step.key] = execute_step_out_of_process(step_context, step)
 
         empty_iters = []
-        for key, step_iter in active_iters.items():
+        for key, step_iter in sorted(active_iters.items()):
             try:
                 event_or_none = next(step_iter)
                 if event_or_none is None:

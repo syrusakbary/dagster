@@ -489,7 +489,7 @@ def validate_composite_config_value(composite_type, config_value, stack):
     # ...However, for any fields the user *has* told us about, we validate against their config
     # specifications
     missing_fields = []
-    for expected_field, field_def in fields.items():
+    for expected_field, field_def in sorted(fields.items()):
         if expected_field in incoming_fields:
             for error in _validate_config(
                 field_def.config_type,

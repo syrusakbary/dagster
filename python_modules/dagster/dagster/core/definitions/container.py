@@ -101,11 +101,11 @@ def validate_dependency_dict(dependencies):
                     )
                 )
 
-        for input_key, dep in dep_dict.items():
+        for input_key, dep in sorted(dep_dict.items()):
             if not isinstance(input_key, six.string_types):
                 raise DagsterInvalidDefinitionError(
                     prelude
-                    + 'Received non-sting key in the inner dict for key {key}.'.format(key=key)
+                    + 'Received non-string key in the inner dict for key {key}.'.format(key=key)
                 )
             if not isinstance(dep, IDependencyDefinition):
                 raise DagsterInvalidDefinitionError(
@@ -224,8 +224,8 @@ def _build_pipeline_solid_dict(solids, name_to_aliases, alias_to_solid_instance,
 
 
 def _validate_dependencies(dependencies, solid_dict, alias_to_name):
-    for from_solid, dep_by_input in dependencies.items():
-        for from_input, dep_def in dep_by_input.items():
+    for from_solid, dep_by_input in sorted(dependencies.items()):
+        for from_input, dep_def in sorted(dep_by_input.items()):
             for dep in dep_def.get_definitions():
 
                 if from_solid == dep.solid:
