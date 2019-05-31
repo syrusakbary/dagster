@@ -47,11 +47,6 @@ class Manager:
         config = check.opt_dict_param(config, 'config')
         pipeline_def = PipelineDefinition([], name='Ephemeral Notebook Pipeline')
 
-        # BUG: If the context cleans up after itself (e.g. closes a db connection or similar)
-        # This will instigate that process *before* return. We are going to have to
-        # manage this manually (without an if block) in order to make this work.
-        # See https://github.com/dagster-io/dagster/issues/796
-
         if config.keys():
             warnings.warn(
                 'Config keys will not be respected for in-notebook '
@@ -63,10 +58,16 @@ class Manager:
             config = {}
 
         with scoped_pipeline_context(
-            pipeline_def, config, RunConfig(run_id='')
+            pipeline_def, config, RunConfig(run_id=''), create_resources=False
         ) as pipeline_context:
             self.context = DagstermillInNotebookExecutionContext(
                 pipeline_context, out_of_pipeline=True
+            )
+
+        self.context.setup_resources()
+        if self.context._resource_context_stack:  # pylint: disable=protected-access
+            warnings.warn(
+                'Call context.teardown_resources() to finalize resources attached to the context.'
             )
         return self.context
 
@@ -167,7 +168,7 @@ class Manager:
                         'that are not pickling, then you must register a repository within '
                         'notebook by calling dm.register_repository(repository_def).'
                     )
-            environment_dict['loggers'] = dict(environment_dict.get('loggers', {}), dagstermill={})
+            environment_dict = {'loggers': {'dagstermill': {}}}
             run_config = RunConfig(run_id=run_id, mode=mode)
 
         else:

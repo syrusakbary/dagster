@@ -17,7 +17,9 @@ class DagstermillExecutePreprocessor(PapermillExecutePreprocessor):
             nb_man, resources
         )
 
-        new_cell = nbformat.v4.new_code_cell(source='context.teardown_resources()\n')
+        new_cell = nbformat.v4.new_code_cell(
+            source=('import dagstermill as dm\n' 'dm.teardown()\n')
+        )
         new_cell.metadata['tags'] = ['injected-teardown']
         new_cell.metadata['papermill'] = {}
         index = len(nb_man.nb.cells)

@@ -177,7 +177,7 @@ def construct_pipeline_execution_context(
 ):
     check.inst_param(run_config, 'run_config', RunConfig)
     check.inst_param(pipeline_def, 'pipeline', PipelineDefinition)
-    check.inst_param(resources, 'resources', ResourcesBuilder)
+    check.opt_inst_param(resources, 'resources', ResourcesBuilder, default=ResourcesBuilder({}))
     check.inst_param(environment_config, 'environment_config', EnvironmentConfig)
     check.inst_param(run_storage, 'run_storage', RunStorage)
     check.inst_param(intermediates_manager, 'intermediates_manager', IntermediatesManager)

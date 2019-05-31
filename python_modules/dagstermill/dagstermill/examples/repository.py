@@ -240,6 +240,16 @@ def hello_world_resource_solid():
     )
 
 
+@solid_definition
+def hello_world_resource_with_exception_solid():
+    return dm.define_dagstermill_solid(
+        'hello_world_resource_with_exception',
+        nb_test_path('hello_world_resource_with_exception'),
+        inputs=[InputDefinition('nonce')],
+        resources={'list'},
+    )
+
+
 class FilePickleList(object):
     # This is not thread- or anything else-safe
     def __init__(self, path):
@@ -298,6 +308,17 @@ def define_resource_pipeline():
     )
 
 
+def define_resource_with_exception_pipeline():
+    return PipelineDefinition(
+        name='resource_with_exception_pipeline',
+        solids=[resource_solid, hello_world_resource_with_exception_solid],
+        dependencies={
+            'hello_world_resource_with_exception': {'nonce': DependencyDefinition('resource_solid')}
+        },
+        mode_definitions=[ModeDefinition(resources={'list': filepicklelist_resource})],
+    )
+
+
 def define_example_repository():
     return RepositoryDefinition(
         name='notebook_repo',
@@ -307,6 +328,7 @@ def define_example_repository():
             'hello_world_with_output_pipeline': define_hello_world_with_output_pipeline,
             'hello_logging_pipeline': define_hello_logging_pipeline,
             'resource_pipeline': define_resource_pipeline,
+            'resource_with_exception_pipeline': define_resource_with_exception_pipeline,
             'test_add_pipeline': define_add_pipeline,
             'test_notebook_dag': define_test_notebook_dag_pipeline,
             'tutorial_pipeline': define_tutorial_pipeline,
