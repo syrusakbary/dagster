@@ -33,17 +33,13 @@
   */
 package io.dagster.events
 
-import java.io.File
-
 import org.apache.spark.sql.Dataset
 import java.util.Date
-import com.amazonaws.services.s3.AmazonS3ClientBuilder
-import com.amazonaws.services.s3.model.{DeleteObjectRequest, ListObjectsRequest, S3ObjectSummary}
-import scala.reflect.io.Directory
-import scala.reflect.internal.FatalError
-import scala.collection.JavaConversions._
-import scala.io.Source
 
+import com.amazonaws.services.s3.AmazonS3ClientBuilder
+
+import scala.reflect.internal.FatalError
+import scala.io.Source
 import models._
 
 object EventPipeline extends SparkJob {
@@ -51,26 +47,13 @@ object EventPipeline extends SparkJob {
 
   import spark.implicits._
 
-  def getS3Objects(backend: S3StorageBackend, date: Date): Seq[String] = {
-    // We first retrieve a list of S3 filenames under our bucket prefix, then process.
-    // See: https://tech.kinja.com/how-not-to-pull-from-s3-using-apache-spark-1704509219
-    val request = new ListObjectsRequest()
-    request.setBucketName(backend.bucket)
-    request.setPrefix(backend.inputPath)
-
-    AmazonS3ClientBuilder.defaultClient
-      .listObjects(request)
-      .getObjectSummaries
-      .toList
-      .map(_.getKey)
-  }
-
   def readEvents(backend: StorageBackend, date: Date): Dataset[Event] = {
-    // Read event records from either S3 or from local path
+    // Read event records from local path, GCS, or S3
     val records = backend match {
       case l: LocalStorageBackend => spark.read.textFile(l.inputPath)
+      case g: GCSStorageBackend   => spark.read.textFile(g.inputPath)
       case s: S3StorageBackend =>
-        getS3Objects(s, date)
+        s.getS3Objects(date)
           .toDS()
           .mapPartitions { part =>
             // S3 client objects are not serializable, so we need to instantiate each on the executors, not on the master.
@@ -89,19 +72,21 @@ object EventPipeline extends SparkJob {
   override def run(args: Array[String]) {
     val conf = EventPipelineConfig.parse(args)
 
-    // Except either local or S3
+    // Must be configured for one of local, S3, or GCS only
     require(
-      conf.localPath.isDefined ^ (conf.s3Bucket.isDefined & conf.s3Prefix.isDefined),
-      "Only one of local-path or S3 bucket/prefix may be defined"
+      conf.localPath.isDefined ^
+        (conf.s3Bucket.isDefined & conf.s3Prefix.isDefined) ^
+        (conf.gcsInputBucket.isDefined & conf.gcsOutputBucket.isDefined),
+      "Only one of (local-path), (S3 bucket/prefix), (GCS input/output buckets) may be defined"
     )
 
     // Create an ADT StorageBackend to abstract away which we're talking to
     val backend: StorageBackend =
-      (conf.localPath, conf.s3Bucket, conf.s3Prefix) match {
-        case (None, Some(bucket), Some(prefix)) =>
-          S3StorageBackend(bucket, prefix, conf.date)
-        case (Some(path), None, None) => LocalStorageBackend(path, conf.date)
-        case _                        => throw new IllegalArgumentException("Error, invalid arguments")
+      (conf.localPath, conf.s3Bucket, conf.s3Prefix, conf.gcsInputBucket, conf.gcsOutputBucket) match {
+        case (_, Some(bucket), Some(prefix), _, _)            => S3StorageBackend(bucket, prefix, conf.date)
+        case (Some(path), _, _, _, _)                         => LocalStorageBackend(path, conf.date)
+        case (_, _, _, Some(inputBucket), Some(outputBucket)) => GCSStorageBackend(inputBucket, outputBucket, conf.date)
+        case _                                                => throw new IllegalArgumentException("Error, invalid arguments")
       }
 
     val events = readEvents(backend, conf.date)
@@ -112,43 +97,21 @@ object EventPipeline extends SparkJob {
       .foreach(log.debug)
 
     // Ensure output path is empty
-    backend match {
-      case _: LocalStorageBackend =>
-        val file = new File(backend.outputPath)
-        if (file.exists && file.isDirectory) {
-          log.info(s"Removing local output files at ${backend.outputPath}")
-          Directory(file).deleteRecursively()
-        }
-
-      case s: S3StorageBackend =>
-        val s3Client = AmazonS3ClientBuilder.defaultClient
-        val objs =
-          s3Client.listObjects(s.bucket, s.outputPath).getObjectSummaries
-        if (!objs.isEmpty) {
-          log.info(s"Removing contents of S3 output at path ${s.outputURI}")
-          objs.foreach { obj: S3ObjectSummary =>
-            log.info(s"Deleting S3 object ${obj.getKey}")
-            val request = new DeleteObjectRequest(s.bucket, obj.getKey)
-            s3Client.deleteObject(request)
-          }
-        }
-    }
+    backend.ensureOutputEmpty()
 
     // Write event records as Parquet
-    val parquetOutputLocation = backend match {
-      case l: LocalStorageBackend => l.outputPath
-      case s: S3StorageBackend    => s.outputURI
-    }
     events
       .toDF()
       .write
-      .parquet(parquetOutputLocation)
+      .parquet(backend.outputURI)
   }
 }
 
 case class EventPipelineConfig(
   s3Bucket: Option[String] = None,
   s3Prefix: Option[String] = None,
+  gcsInputBucket: Option[String] = None,
+  gcsOutputBucket: Option[String] = None,
   localPath: Option[String] = None,
   date: Date = new Date()
 )
@@ -164,6 +127,14 @@ object EventPipelineConfig {
     opt[String]("s3-prefix")
       .action((x, c) => c.copy(s3Prefix = Some(x)))
       .text("S3 prefix to read")
+
+    opt[String]("gcs-input-bucket")
+      .action((x, c) => c.copy(gcsInputBucket = Some(x)))
+      .text("GCS input bucket to read")
+
+    opt[String]("gcs-output-bucket")
+      .action((x, c) => c.copy(gcsOutputBucket = Some(x)))
+      .text("GCS output bucket to write")
 
     opt[String]("local-path")
       .action((x, c) => c.copy(localPath = Some(x)))
