@@ -23,7 +23,7 @@ from dagster.core.execution.context.system import (
     SystemStepExecutionContext,
 )
 
-from dagster.core.definitions import Materialization, ExpectationResult
+from dagster.core.definitions import Materialization, ExpectationResult, Result
 
 from dagster.core.events import DagsterEvent, DagsterEventType
 
@@ -34,7 +34,6 @@ from dagster.utils.error import serializable_error_info_from_exc_info
 from dagster.core.execution.plan.objects import (
     ExecutionStep,
     StepOutputHandle,
-    StepOutputValue,
     StepOutputData,
     StepFailureData,
     StepSuccessData,
@@ -208,11 +207,11 @@ def _error_check_step_outputs(step_context, step_output_iter):
     seen_outputs = set()
 
     for step_output in step_output_iter:
-        if not isinstance(step_output, StepOutputValue):
+        if not isinstance(step_output, Result):
             yield step_output
             continue
 
-        # do additional processing on StepOutputValues
+        # do additional processing on Results
         step_output_value = step_output
         if not step.has_step_output(step_output_value.output_name):
             raise DagsterInvariantViolationError(
@@ -244,7 +243,7 @@ def _error_check_step_outputs(step_context, step_output_iter):
                         output=step_output_def.name, solid={str(step.solid_handle)}
                     )
                 )
-                yield StepOutputValue(output_name=step_output_def.name, value=None)
+                yield Result(output_name=step_output_def.name, value=None)
             else:
                 raise DagsterStepOutputNotFoundError(
                     'Core compute for solid "{handle}" did not return an output '
@@ -277,7 +276,7 @@ def _execute_steps_core_loop(step_context, inputs, intermediates_manager):
         _error_check_step_outputs(step_context, step_output_iterator)
     ):
 
-        if isinstance(step_output, StepOutputValue):
+        if isinstance(step_output, Result):
             yield _create_step_output_event(step_context, step_output, intermediates_manager)
         elif isinstance(step_output, Materialization):
             yield DagsterEvent.step_materialization(step_context, step_output)
@@ -297,7 +296,7 @@ def _execute_steps_core_loop(step_context, inputs, intermediates_manager):
 
 def _create_step_output_event(step_context, step_output_value, intermediates_manager):
     check.inst_param(step_context, 'step_context', SystemStepExecutionContext)
-    check.inst_param(step_output_value, 'step_output_value', StepOutputValue)
+    check.inst_param(step_output_value, 'step_output_value', Result)
     check.inst_param(intermediates_manager, 'intermediates_manager', IntermediatesManager)
 
     step = step_context.step
