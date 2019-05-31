@@ -16,12 +16,9 @@ from .utils import (
 )
 
 
-@resource
-def spark_session_local(_init_context):
-    # Need two versions of this, one for test/local and one with a
-    # configurable cluster
-    spark = (
-        SparkSession.builder.appName("AirlineDemo")
+def create_airline_demo_spark_session():
+    return (
+        SparkSession.builder.appName('AirlineDemo')
         .config(
             'spark.jars.packages',
             'com.databricks:spark-avro_2.11:3.0.0,'
@@ -33,7 +30,13 @@ def spark_session_local(_init_context):
         )
         .getOrCreate()
     )
-    return spark
+
+
+@resource
+def spark_session_local(_init_context):
+    # Need two versions of this, one for test/local and one with a
+    # configurable cluster
+    return create_airline_demo_spark_session()
 
 
 class TempfileManager(object):
