@@ -90,3 +90,9 @@ def get_context(config=None):
     if not MANAGER_FOR_NOTEBOOK_INSTANCE.populated_by_papermill:
         MANAGER_FOR_NOTEBOOK_INSTANCE.define_out_of_pipeline_context(config)
     return MANAGER_FOR_NOTEBOOK_INSTANCE.context
+
+
+def teardown():
+    context = get_context()
+    if context is not None:
+        context.teardown_resources()
