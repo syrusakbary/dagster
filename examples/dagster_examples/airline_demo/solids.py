@@ -505,19 +505,24 @@ def process_q2_data(context, april_data, may_data, june_data, master_cord_data):
 
     dfs = {'april': april_data, 'may': may_data, 'june': june_data}
 
-    missing_things = []
+    from collections import defaultdict
+
+    missing_things = defaultdict(list)
 
     for required_column in ['DestAirportSeqID', 'OriginAirportSeqID']:
         for month, df in dfs.items():
             if required_column not in df.columns:
-                missing_things.append({'month': month, 'missing_column': required_column})
+                missing_things[month].append(required_column)
 
-    yield ExpectationResult(
-        success=not bool(missing_things),
-        name='airport_ids_present',
-        message='Sequence IDs present in incoming monthly flight data.',
-        result_metadata={'missing_columns': missing_things},
-    )
+    if bool(missing_things):
+        yield ExpectationResult(
+            success=not bool(missing_things),
+            name='airport_ids_present',
+            message='Sequence IDs present in incoming monthly flight data.',
+            result_metadata={'missing_columns': missing_things},
+        )
+        # what is the cleanest wait to terminate?
+        raise Exception('failure')
 
     yield ExpectationResult(
         success=set(april_data.columns) == set(may_data.columns) == set(june_data.columns),
