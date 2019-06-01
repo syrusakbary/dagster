@@ -448,7 +448,7 @@ delays_by_geography = notebook_solid(
     ],
 )
 
-delays_vs_fares_nb = notebook_solid(
+fares_vs_delays = notebook_solid(
     'fares_vs_delays',
     'Fares_vs_Delays.ipynb',
     inputs=[
