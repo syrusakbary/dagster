@@ -21,7 +21,7 @@ from dagster import (
 from dagster.core.types import Nullable, List, String
 
 from dagster.core.definitions import Solid, solids_in_topological_order
-from dagster.core.definitions.dependency import DependencyStructure
+from dagster.core.definitions.dependency import DependencyStructure, default_resource_mapper_fn
 from dagster.core.definitions.container import _create_adjacency_lists
 
 from dagster.core.execution.api import step_output_event_filter
@@ -70,9 +70,7 @@ def make_transform():
 
 def _do_construct(solids, dependencies):
     solids = {
-        s.name: Solid(
-            name=s.name, definition=s, resource_mapper_fn=SolidInstance.default_resource_mapper_fn
-        )
+        s.name: Solid(name=s.name, definition=s, resource_mapper_fn=default_resource_mapper_fn)
         for s in solids
     }
     dependency_structure = DependencyStructure.from_definitions(solids, dependencies)
