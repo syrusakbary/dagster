@@ -44,13 +44,13 @@ class SolidInstance(namedtuple('Solid', 'name alias resource_mapper_fn')):
         name = check.str_param(name, 'name')
         alias = check.opt_str_param(alias, 'alias')
         resource_mapper_fn = check.opt_callable_param(
-            resource_mapper_fn, 'resource_mapper_fn', SolidInstance.default_resource_mapper_fn
+            resource_mapper_fn, 'resource_mapper_fn', default_resource_mapper_fn
         )
         return super(cls, SolidInstance).__new__(cls, name, alias, resource_mapper_fn)
 
-    @staticmethod
-    def default_resource_mapper_fn(resources, resource_deps):
-        return {r: resources.get(r) for r in resource_deps}
+
+def default_resource_mapper_fn(resources, resource_deps):
+    return {r: resources.get(r) for r in resource_deps}
 
 
 class Solid(object):
@@ -64,12 +64,16 @@ class Solid(object):
             Definition of the solid.
     '''
 
-    def __init__(self, name, definition, resource_mapper_fn, parent=None):
+    def __init__(self, name, definition, resource_mapper_fn=None, parent=None):
         from .solid import ISolidDefinition, CompositeSolidDefinition
 
         self.name = check.str_param(name, 'name')
         self.definition = check.inst_param(definition, 'definition', ISolidDefinition)
-        self.resource_mapper_fn = check.callable_param(resource_mapper_fn, 'resource_mapper_fn')
+        self.resource_mapper_fn = (
+            check.callable_param(resource_mapper_fn, 'resource_mapper_fn')
+            if resource_mapper_fn
+            else default_resource_mapper_fn
+        )
         self.parent = check.opt_inst_param(parent, 'parent', CompositeSolidDefinition)
 
         input_handles = {}
