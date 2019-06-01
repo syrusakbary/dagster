@@ -1,4 +1,5 @@
 import os
+import sys
 import yaml
 
 DOCKER_PLUGIN = "docker#v3.2.0"
@@ -285,67 +286,39 @@ def dask_tests():
     return tests
 
 
-if __name__ == "__main__":
-    steps = [
-        StepBuilder("pylint")
-        .run("make install_dev_python_modules", "make pylint")
-        .on_integration_image(SupportedPython.V3_7)
-        .build(),
-        StepBuilder("black")
-        # black 18.9b0 doesn't support py27-compatible formatting of the below invocation (omitting
-        # the trailing comma after **check.opt_dict_param...) -- black 19.3b0 supports multiple
-        # python versions, but currently doesn't know what to do with from __future__ import
-        # print_function -- see https://github.com/ambv/black/issues/768
-        .run("pip install black==18.9b0", "make check_black")
-        .on_python_image(SupportedPython.V3_7)
-        .build(),
-        StepBuilder("docs snapshot test")
+def deploy_scala():
+    # GCP tests need appropriate credentials
+    creds_local_file = "/tmp/gcp-key-elementl-dev.json"
+    version = "3.7"
+
+    return (
+        StepBuilder("scala deploy")
         .run(
-            "pip install -r python_modules/dagster/dev-requirements.txt -qqq",
-            "pip install -e python_modules/dagster -qqq",
-            "pytest -vv docs",
+            "pip install awscli",
+            "pip install --upgrade google-cloud-storage",
+            "aws s3 cp s3://${BUILDKITE_SECRETS_BUCKET}/gcp-key-elementl-dev.json "
+            + creds_local_file,
+            "export GOOGLE_APPLICATION_CREDENTIALS=" + creds_local_file,
+            "pushd scala_modules",
+            "make deploy",
         )
-        .on_python_image(SupportedPython.V3_7)
-        .build(),
-        StepBuilder("dagit webapp tests")
-        .run(
-            "pip install -r python_modules/dagster/dev-requirements.txt -qqq",
-            "pip install -e python_modules/dagster -qqq",
-            "pip install -e python_modules/dagster-graphql -qqq",
-            "pip install -e python_modules/dagit -qqq",
-            "pip install -r python_modules/dagit/dev-requirements.txt -qqq",
-            "pip install -e examples -qqq",
-            "cd js_modules/dagit",
-            "yarn install --offline",
-            "yarn run ts",
-            "yarn run jest",
-            "yarn run check-prettier",
-            "yarn run download-schema",
-            "yarn run generate-types",
-            "git diff --exit-code",
-            "mv coverage/lcov.info lcov.dagit.$BUILDKITE_BUILD_ID.info",
-            "buildkite-agent artifact upload lcov.dagit.$BUILDKITE_BUILD_ID.info",
+        .on_integration_image(
+            version,
+            [
+                'AWS_SECRET_ACCESS_KEY',
+                'AWS_ACCESS_KEY_ID',
+                'AWS_DEFAULT_REGION',
+                'BUILDKITE_SECRETS_BUCKET',
+                'GCP_PROJECT_ID',
+                'GCP_DEPLOY_BUCKET',
+            ],
         )
-        .on_integration_image(SupportedPython.V3_7)
-        .build(),
-    ]
-    steps += airline_demo_tests()
-    steps += events_demo_tests()
-    steps += airflow_tests()
-    steps += dask_tests()
+        .build()
+    )
 
-    steps += python_modules_tox_tests("dagster")
-    steps += python_modules_tox_tests("dagit", ["apt-get update", "apt-get install -y xdg-utils"])
-    steps += python_modules_tox_tests("dagster-graphql")
-    steps += python_modules_tox_tests("dagstermill")
 
-    for library in LIBRARY_MODULES:
-        steps += python_modules_tox_tests("libraries/{library}".format(library=library))
-
-    steps += gcp_tests()
-    steps += examples_tests()
-    steps += [
-        wait_step(),  # wait for all previous steps to finish
+def coverage_step():
+    return (
         StepBuilder("coverage")
         .run(
             "apt-get update",
@@ -371,8 +344,75 @@ if __name__ == "__main__":
                 'CI_PULL_REQUEST',
             ],
         )
-        .build(),
-    ]
+        .build()
+    )
+
+
+if __name__ == "__main__":
+    if len(sys.argv) == 2 and sys.argv[1] == 'deploy-scala':
+        steps = [deploy_scala()]
+    else:
+        steps = [
+            StepBuilder("pylint")
+            .run("make install_dev_python_modules", "make pylint")
+            .on_integration_image(SupportedPython.V3_7)
+            .build(),
+            StepBuilder("black")
+            # black 18.9b0 doesn't support py27-compatible formatting of the below invocation (omitting
+            # the trailing comma after **check.opt_dict_param...) -- black 19.3b0 supports multiple
+            # python versions, but currently doesn't know what to do with from __future__ import
+            # print_function -- see https://github.com/ambv/black/issues/768
+            .run("pip install black==18.9b0", "make check_black")
+            .on_python_image(SupportedPython.V3_7)
+            .build(),
+            StepBuilder("docs snapshot test")
+            .run(
+                "pip install -r python_modules/dagster/dev-requirements.txt -qqq",
+                "pip install -e python_modules/dagster -qqq",
+                "pytest -vv docs",
+            )
+            .on_python_image(SupportedPython.V3_7)
+            .build(),
+            StepBuilder("dagit webapp tests")
+            .run(
+                "pip install -r python_modules/dagster/dev-requirements.txt -qqq",
+                "pip install -e python_modules/dagster -qqq",
+                "pip install -e python_modules/dagster-graphql -qqq",
+                "pip install -e python_modules/dagit -qqq",
+                "pip install -r python_modules/dagit/dev-requirements.txt -qqq",
+                "pip install -e examples -qqq",
+                "cd js_modules/dagit",
+                "yarn install --offline",
+                "yarn run ts",
+                "yarn run jest",
+                "yarn run check-prettier",
+                "yarn run download-schema",
+                "yarn run generate-types",
+                "git diff --exit-code",
+                "mv coverage/lcov.info lcov.dagit.$BUILDKITE_BUILD_ID.info",
+                "buildkite-agent artifact upload lcov.dagit.$BUILDKITE_BUILD_ID.info",
+            )
+            .on_integration_image(SupportedPython.V3_7)
+            .build(),
+        ]
+        steps += airline_demo_tests()
+        steps += events_demo_tests()
+        steps += airflow_tests()
+        steps += dask_tests()
+
+        steps += python_modules_tox_tests("dagster")
+        steps += python_modules_tox_tests(
+            "dagit", ["apt-get update", "apt-get install -y xdg-utils"]
+        )
+        steps += python_modules_tox_tests("dagster-graphql")
+        steps += python_modules_tox_tests("dagstermill")
+
+        for library in LIBRARY_MODULES:
+            steps += python_modules_tox_tests("libraries/{library}".format(library=library))
+
+        steps += gcp_tests()
+        steps += examples_tests()
+        steps += [wait_step(), coverage_step()]
 
     print(
         yaml.dump(
