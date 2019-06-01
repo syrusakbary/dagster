@@ -7,7 +7,13 @@ from dagster import check
 from dagster.core.errors import DagsterInvalidDefinitionError
 from dagster.core.utils import toposort_flatten
 
-from .dependency import DependencyStructure, IDependencyDefinition, Solid, SolidInstance
+from .dependency import (
+    DependencyStructure,
+    IDependencyDefinition,
+    Solid,
+    SolidInstance,
+    default_resource_mapper_fn,
+)
 
 
 class IContainSolids(six.with_metaclass(ABCMeta)):  # pylint: disable=no-init
@@ -207,9 +213,7 @@ def _build_pipeline_solid_dict(solids, name_to_aliases, alias_to_solid_instance,
         for alias in uses_of_solid:
             solid_instance = alias_to_solid_instance.get(alias)
             resource_mapper_fn = (
-                solid_instance.resource_mapper_fn
-                if solid_instance
-                else SolidInstance.default_resource_mapper_fn
+                solid_instance.resource_mapper_fn if solid_instance else default_resource_mapper_fn
             )
             pipeline_solids.append(
                 Solid(

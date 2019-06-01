@@ -1,13 +1,7 @@
 """Pipeline definitions for the airline_demo."""
 
-from dagster import (
-    DependencyDefinition,
-    ModeDefinition,
-    PipelineDefinition,
-    PresetDefinition,
-    SolidInstance,
-    file_relative_path,
-)
+from dagster import ModeDefinition, PresetDefinition, file_relative_path
+from dagster.core.definitions.pipeline import pipeline
 
 from dagster_aws.s3.resources import s3_resource
 from dagster_aws.s3.solids import download_from_s3_to_bytes, put_object_to_s3_bytes
@@ -72,118 +66,17 @@ prod_mode = ModeDefinition(
 
 
 def define_airline_demo_ingest_pipeline():
-    solids = [
-        canonicalize_column_names,
-        download_from_s3_to_bytes,
-        ingest_csv_to_spark,
-        load_data_to_database_from_spark,
-        process_q2_data,
-        process_sfo_weather_data,
-        subsample_spark_dataset,
-        unzip_file,
-    ]
-    dependencies = {
-        SolidInstance('download_from_s3_to_bytes', alias='download_april_on_time_data'): {},
-        SolidInstance('download_from_s3_to_bytes', alias='download_may_on_time_data'): {},
-        SolidInstance('download_from_s3_to_bytes', alias='download_june_on_time_data'): {},
-        SolidInstance('download_from_s3_to_bytes', alias='download_master_cord_data'): {},
-        SolidInstance('download_from_s3_to_bytes', alias='download_q2_coupon_data'): {},
-        SolidInstance('download_from_s3_to_bytes', alias='download_q2_market_data'): {},
-        SolidInstance('download_from_s3_to_bytes', alias='download_q2_ticket_data'): {},
-        SolidInstance('download_from_s3_to_bytes', alias='download_q2_sfo_weather'): {},
-        SolidInstance('unzip_file', alias='unzip_april_on_time_data'): {
-            'archive_file': DependencyDefinition('download_april_on_time_data')
-        },
-        SolidInstance('unzip_file', alias='unzip_may_on_time_data'): {
-            'archive_file': DependencyDefinition('download_may_on_time_data')
-        },
-        SolidInstance('unzip_file', alias='unzip_june_on_time_data'): {
-            'archive_file': DependencyDefinition('download_june_on_time_data')
-        },
-        SolidInstance('unzip_file', alias='unzip_master_cord_data'): {
-            'archive_file': DependencyDefinition('download_master_cord_data')
-        },
-        SolidInstance('unzip_file', alias='unzip_q2_coupon_data'): {
-            'archive_file': DependencyDefinition('download_q2_coupon_data')
-        },
-        SolidInstance('unzip_file', alias='unzip_q2_market_data'): {
-            'archive_file': DependencyDefinition('download_q2_market_data')
-        },
-        SolidInstance('unzip_file', alias='unzip_q2_ticket_data'): {
-            'archive_file': DependencyDefinition('download_q2_ticket_data')
-        },
-        SolidInstance('ingest_csv_to_spark', alias='ingest_april_on_time_data'): {
-            'input_csv_file': DependencyDefinition('unzip_april_on_time_data')
-        },
-        SolidInstance('ingest_csv_to_spark', alias='ingest_may_on_time_data'): {
-            'input_csv_file': DependencyDefinition('unzip_may_on_time_data')
-        },
-        SolidInstance('ingest_csv_to_spark', alias='ingest_june_on_time_data'): {
-            'input_csv_file': DependencyDefinition('unzip_june_on_time_data')
-        },
-        SolidInstance('ingest_csv_to_spark', alias='ingest_q2_sfo_weather'): {
-            'input_csv_file': DependencyDefinition('download_q2_sfo_weather')
-        },
-        SolidInstance('ingest_csv_to_spark', alias='ingest_q2_coupon_data'): {
-            'input_csv_file': DependencyDefinition('unzip_q2_coupon_data')
-        },
-        SolidInstance('ingest_csv_to_spark', alias='ingest_q2_market_data'): {
-            'input_csv_file': DependencyDefinition('unzip_q2_market_data')
-        },
-        SolidInstance('ingest_csv_to_spark', alias='ingest_q2_ticket_data'): {
-            'input_csv_file': DependencyDefinition('unzip_q2_ticket_data')
-        },
-        SolidInstance('ingest_csv_to_spark', alias='ingest_master_cord_data'): {
-            'input_csv_file': DependencyDefinition('unzip_master_cord_data')
-        },
-        'process_q2_data': {
-            'april_data': DependencyDefinition('ingest_april_on_time_data'),
-            'may_data': DependencyDefinition('ingest_may_on_time_data'),
-            'june_data': DependencyDefinition('ingest_june_on_time_data'),
-            'master_cord_data': DependencyDefinition('ingest_master_cord_data'),
-        },
-        SolidInstance('subsample_spark_dataset', alias='subsample_q2_ticket_data'): {
-            'data_frame': DependencyDefinition('ingest_q2_ticket_data')
-        },
-        SolidInstance('subsample_spark_dataset', alias='subsample_q2_market_data'): {
-            'data_frame': DependencyDefinition('ingest_q2_market_data')
-        },
-        SolidInstance('subsample_spark_dataset', alias='subsample_q2_coupon_data'): {
-            'data_frame': DependencyDefinition('ingest_q2_coupon_data')
-        },
-        'process_sfo_weather_data': {
-            'sfo_weather_data': DependencyDefinition('ingest_q2_sfo_weather')
-        },
-        SolidInstance('canonicalize_column_names', alias='canonicalize_q2_coupon_data'): {
-            'data_frame': DependencyDefinition('subsample_q2_coupon_data')
-        },
-        SolidInstance('canonicalize_column_names', alias='canonicalize_q2_market_data'): {
-            'data_frame': DependencyDefinition('subsample_q2_market_data')
-        },
-        SolidInstance('canonicalize_column_names', alias='canonicalize_q2_ticket_data'): {
-            'data_frame': DependencyDefinition('subsample_q2_ticket_data')
-        },
-        SolidInstance('load_data_to_database_from_spark', alias='load_q2_on_time_data'): {
-            'data_frame': DependencyDefinition('process_q2_data')
-        },
-        SolidInstance('load_data_to_database_from_spark', alias='load_q2_coupon_data'): {
-            'data_frame': DependencyDefinition('canonicalize_q2_coupon_data')
-        },
-        SolidInstance('load_data_to_database_from_spark', alias='load_q2_market_data'): {
-            'data_frame': DependencyDefinition('canonicalize_q2_market_data')
-        },
-        SolidInstance('load_data_to_database_from_spark', alias='load_q2_ticket_data'): {
-            'data_frame': DependencyDefinition('canonicalize_q2_ticket_data')
-        },
-        SolidInstance('load_data_to_database_from_spark', alias='load_q2_sfo_weather'): {
-            'data_frame': DependencyDefinition('process_sfo_weather_data')
-        },
-    }
-
-    return PipelineDefinition(
-        name="airline_demo_ingest_pipeline",
-        solids=solids,
-        dependencies=dependencies,
+    @pipeline(
+        solids=[
+            canonicalize_column_names,
+            download_from_s3_to_bytes,
+            ingest_csv_to_spark,
+            load_data_to_database_from_spark,
+            process_q2_data,
+            process_sfo_weather_data,
+            subsample_spark_dataset,
+            unzip_file,
+        ],
         mode_definitions=[test_mode, local_mode, prod_mode],
         preset_definitions=[
             PresetDefinition(
@@ -204,11 +97,64 @@ def define_airline_demo_ingest_pipeline():
             ),
         ],
     )
+    def airline_demo_ingest_pipeline(graph):
+        dl_canonicalize_and_load(graph, 'q2_coupon_data')
+        dl_canonicalize_and_load(graph, 'q2_market_data')
+        dl_canonicalize_and_load(graph, 'q2_ticket_data')
+
+        graph.load_data_to_database_from_spark.alias('load_q2_on_time_data')(
+            data_frame=graph.process_q2_data(
+                april_data=dl_and_load_df(graph, 'april_on_time'),
+                may_data=dl_and_load_df(graph, 'may_on_time'),
+                june_data=dl_and_load_df(graph, 'june_on_time'),
+                master_cord_data=dl_and_load_df(graph, 'master_cord'),
+            )
+        )
+
+        graph.load_data_to_database_from_spark.alias('load_q2_sfo_weather')(
+            data_frame=graph.process_sfo_weather_data(
+                sfo_weather_data=graph.ingest_csv_to_spark.alias('ingest_q2_sfo_weather')(
+                    input_csv_file=graph.download_from_s3_to_bytes.alias(
+                        'download_q2_sfo_weather'
+                    )()
+                )
+            )
+        )
+
+    return airline_demo_ingest_pipeline
+
+
+def dl_and_load_df(graph, label):
+    def name(stage_name):
+        return '{stage_name}_{label}_data'.format(stage_name=stage_name, label=label)
+
+    return graph.ingest_csv_to_spark.alias(name('ingest'))(
+        input_csv_file=graph.unzip_file.alias(name('unzip'))(
+            archive_file=graph.download_from_s3_to_bytes.alias(name('download'))()
+        )
+    )
+
+
+# TODO, make into true composite?
+def dl_canonicalize_and_load(graph, segment_name):
+    def seg(stage_name):
+        return stage_name + '_' + segment_name
+
+    graph.load_data_to_database_from_spark.alias(seg('load'))(
+        data_frame=graph.canonicalize_column_names.alias(seg('canonicalize'))(
+            data_frame=graph.subsample_spark_dataset.alias(seg('subsample'))(
+                data_frame=graph.ingest_csv_to_spark.alias(seg('ingest'))(
+                    input_csv_file=graph.unzip_file.alias(seg('unzip'))(
+                        archive_file=graph.download_from_s3_to_bytes.alias(seg('download'))()
+                    )
+                )
+            )
+        )
+    )
 
 
 def define_airline_demo_warehouse_pipeline():
-    return PipelineDefinition(
-        name="airline_demo_warehouse_pipeline",
+    @pipeline(
         solids=[
             average_sfo_outbound_avg_delays_by_destination,
             delays_by_geography,
@@ -221,38 +167,6 @@ def define_airline_demo_warehouse_pipeline():
             put_object_to_s3_bytes,
             westbound_delays,
         ],
-        dependencies={
-            'q2_sfo_outbound_flights': {},
-            'tickets_with_destination': {},
-            'westbound_delays': {},
-            'eastbound_delays': {},
-            'average_sfo_outbound_avg_delays_by_destination': {
-                'q2_sfo_outbound_flights': DependencyDefinition('q2_sfo_outbound_flights')
-            },
-            'delays_vs_fares': {
-                'tickets_with_destination': DependencyDefinition('tickets_with_destination'),
-                'average_sfo_outbound_avg_delays_by_destination': DependencyDefinition(
-                    'average_sfo_outbound_avg_delays_by_destination'
-                ),
-            },
-            'fares_vs_delays': {'table_name': DependencyDefinition('delays_vs_fares')},
-            'sfo_delays_by_destination': {
-                'table_name': DependencyDefinition('average_sfo_outbound_avg_delays_by_destination')
-            },
-            'delays_by_geography': {
-                'eastbound_delays': DependencyDefinition('eastbound_delays'),
-                'westbound_delays': DependencyDefinition('westbound_delays'),
-            },
-            SolidInstance('put_object_to_s3_bytes', alias='upload_outbound_avg_delay_pdf_plots'): {
-                'file_obj': DependencyDefinition('sfo_delays_by_destination')
-            },
-            SolidInstance('put_object_to_s3_bytes', alias='upload_delays_vs_fares_pdf_plots'): {
-                'file_obj': DependencyDefinition('fares_vs_delays')
-            },
-            SolidInstance('put_object_to_s3_bytes', alias='upload_delays_by_geography_pdf_plots'): {
-                'file_obj': DependencyDefinition('delays_by_geography')
-            },
-        },
         mode_definitions=[test_mode, local_mode, prod_mode],
         preset_definitions=[
             PresetDefinition(
@@ -265,3 +179,28 @@ def define_airline_demo_warehouse_pipeline():
             )
         ],
     )
+    def airline_demo_warehouse_pipeline(graph):
+        average_delays = graph.average_sfo_outbound_avg_delays_by_destination(
+            q2_sfo_outbound_flights=graph.q2_sfo_outbound_flights()
+        )
+
+        graph.put_object_to_s3_bytes.alias('upload_delays_vs_fares_pdf_plots')(
+            file_obj=graph.fares_vs_delays(
+                table_name=graph.delays_vs_fares(
+                    tickets_with_destination=graph.tickets_with_destination(),
+                    average_sfo_outbound_avg_delays_by_destination=average_delays,
+                )
+            )
+        )
+
+        graph.put_object_to_s3_bytes.alias('upload_outbound_avg_delay_pdf_plots')(
+            file_obj=graph.sfo_delays_by_destination(table_name=average_delays)
+        )
+
+        graph.put_object_to_s3_bytes.alias('upload_delays_by_geography_pdf_plots')(
+            file_obj=graph.delays_by_geography(
+                westbound_delays=graph.westbound_delays(), eastbound_delays=graph.eastbound_delays()
+            )
+        )
+
+    return airline_demo_warehouse_pipeline
