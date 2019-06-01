@@ -135,11 +135,26 @@ class SolidDefinition(ISolidDefinition):
             output.name: output for output in check.list_param(outputs, 'outputs', OutputDefinition)
         }
 
+        self.input_defs = inputs
+        self.output_defs = outputs
+
         super(SolidDefinition, self).__init__(name, input_dict, output_dict, description, metadata)
 
     @property
     def has_config_entry(self):
         return self.config_field or self.has_configurable_inputs or self.has_configurable_outputs
+
+    def alias(self, name):
+        from .graph import DepSolidNode, Solid
+
+        return DepSolidNode(Solid(name, self))
+
+    def __call__(self, *args, **kwargs):
+        from .graph import DepSolidDefNode
+
+        return DepSolidDefNode(self)(*args, **kwargs)
+
+        # pass
 
 
 class CompositeSolidDefinition(ISolidDefinition, IContainSolids):

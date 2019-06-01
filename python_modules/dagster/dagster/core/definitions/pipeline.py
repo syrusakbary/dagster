@@ -303,12 +303,12 @@ class PipelineDefinition(IContainSolids, object):
 
         preset = self._preset_dict[name]
 
-        pipeline = self
+        pipeline_inst = self
         if preset.solid_subset is not None:
-            pipeline = pipeline.build_sub_pipeline(preset.solid_subset)
+            pipeline_inst = pipeline_inst.build_sub_pipeline(preset.solid_subset)
 
         return {
-            'pipeline': pipeline,
+            'pipeline': pipeline_inst,
             'environment_dict': preset.environment_dict,
             'run_config': RunConfig(mode=preset.mode),
         }
@@ -388,3 +388,27 @@ def _validate_resource_dependencies(mode_definitions, solids):
                             'provided by mode "{mode_name}"'
                         ).format(resource=resource, solid_name=solid.name, mode_name=mode_def.name)
                     )
+
+
+from .graph import from_dep_func
+
+
+def pipeline(name=None, mode_definitions=None, preset_definitions=None):
+    if callable(name):
+        graph_fn = name
+        actual_name = graph_fn.__name__
+        solid_defs, dependencies = from_dep_func(graph_fn)
+        return PipelineDefinition(name=actual_name, solids=solid_defs, dependencies=dependencies)
+
+    def _fn(graph_fn):
+        actual_name = name if name else graph_fn.__name__
+        solid_defs, dependencies = from_dep_func(graph_fn)
+        return PipelineDefinition(
+            name=actual_name,
+            solids=solid_defs,
+            dependencies=dependencies,
+            mode_definitions=mode_definitions,
+            preset_definitions=preset_definitions,
+        )
+
+    return _fn
