@@ -1,4 +1,5 @@
 import os
+import sys
 import yaml
 
 DOCKER_PLUGIN = "docker#v3.2.0"
@@ -285,8 +286,8 @@ def dask_tests():
     return tests
 
 
-if __name__ == "__main__":
-    steps = [
+def docs_snapshot_test():
+    return (
         StepBuilder("pylint")
         .run("make install_dev_python_modules", "make pylint")
         .on_integration_image(SupportedPython.V3_7)
@@ -307,6 +308,11 @@ if __name__ == "__main__":
         )
         .on_python_image(SupportedPython.V3_7)
         .build(),
+    )
+
+
+def dagit_webapp_test():
+    return (
         StepBuilder("dagit webapp tests")
         .run(
             "pip install -r python_modules/dagster/dev-requirements.txt -qqq",
@@ -327,25 +333,43 @@ if __name__ == "__main__":
             "buildkite-agent artifact upload lcov.dagit.$BUILDKITE_BUILD_ID.info",
         )
         .on_integration_image(SupportedPython.V3_7)
-        .build(),
-    ]
-    steps += airline_demo_tests()
-    steps += events_demo_tests()
-    steps += airflow_tests()
-    steps += dask_tests()
+        .build()
+    )
 
-    steps += python_modules_tox_tests("dagster")
-    steps += python_modules_tox_tests("dagit", ["apt-get update", "apt-get install -y xdg-utils"])
-    steps += python_modules_tox_tests("dagster-graphql")
-    steps += python_modules_tox_tests("dagstermill")
 
-    for library in LIBRARY_MODULES:
-        steps += python_modules_tox_tests("libraries/{library}".format(library=library))
+def deploy_scala():
+    # GCP tests need appropriate credentials
+    creds_local_file = "/tmp/gcp-key-elementl-dev.json"
+    version = "3.7"
 
-    steps += gcp_tests()
-    steps += examples_tests()
-    steps += [
-        wait_step(),  # wait for all previous steps to finish
+    return (
+        StepBuilder("scala deploy")
+        .run(
+            "pip install awscli",
+            "pip install --upgrade google-cloud-storage",
+            "aws s3 cp s3://${BUILDKITE_SECRETS_BUCKET}/gcp-key-elementl-dev.json "
+            + creds_local_file,
+            "export GOOGLE_APPLICATION_CREDENTIALS=" + creds_local_file,
+            "pushd scala_modules",
+            "make deploy",
+        )
+        .on_integration_image(
+            version,
+            [
+                'AWS_SECRET_ACCESS_KEY',
+                'AWS_ACCESS_KEY_ID',
+                'AWS_DEFAULT_REGION',
+                'BUILDKITE_SECRETS_BUCKET',
+                'GCP_PROJECT_ID',
+                'GCP_DEPLOY_BUCKET',
+            ],
+        )
+        .build()
+    )
+
+
+def coverage_step():
+    return (
         StepBuilder("coverage")
         .run(
             "apt-get update",
@@ -371,8 +395,39 @@ if __name__ == "__main__":
                 'CI_PULL_REQUEST',
             ],
         )
-        .build(),
-    ]
+        .build()
+    )
+
+
+if __name__ == "__main__":
+    if len(sys.argv) == 2 and sys.argv[1] == 'deploy-scala':
+        steps = [deploy_scala()]
+    else:
+        module_steps = [
+            python_modules_tox_tests(module)
+            for module in ['dagster', 'dagster-graphql', 'dagstermill']
+        ] + [python_modules_tox_tests("dagit", ["apt-get update", "apt-get install -y xdg-utils"])]
+
+        library_steps = [
+            python_modules_tox_tests("libraries/{library}".format(library=library))
+            for library in LIBRARY_MODULES
+        ]
+
+        steps = (
+            [
+                docs_snapshot_test(),
+                dagit_webapp_test(),
+                airline_demo_tests(),
+                events_demo_tests(),
+                airflow_tests(),
+                dask_tests(),
+                gcp_tests(),
+                examples_tests(),
+            ]
+            + module_steps
+            + library_steps
+            + [coverage_step(), wait_step()]
+        )
 
     print(
         yaml.dump(
