@@ -135,6 +135,10 @@ class SolidDefinition(ISolidDefinition):
             output.name: output for output in check.list_param(outputs, 'outputs', OutputDefinition)
         }
 
+        # TODO. Hoist to base class
+        self.input_defs = inputs
+        self.output_defs = outputs
+
         super(SolidDefinition, self).__init__(name, input_dict, output_dict, description, metadata)
 
     @property
