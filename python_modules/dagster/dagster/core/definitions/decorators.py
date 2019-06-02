@@ -90,8 +90,10 @@ class MultipleResults(namedtuple('_MultipleResults', 'results')):
 class _LambdaSolid(object):
     def __init__(self, name=None, inputs=None, output=None, description=None):
         self.name = check.opt_str_param(name, 'name')
-        self.input_defs = check.opt_list_param(inputs, 'inputs', InputDefinition)
-        self.output_def = check.inst_param(output, 'output', OutputDefinition)
+        self.input_defs = (
+            None if inputs is None else check.list_param(inputs, 'inputs', InputDefinition)
+        )
+        self.output_def = check.opt_inst_param(output, 'output', OutputDefinition)
         self.description = check.opt_str_param(description, 'description')
 
     def __call__(self, fn):
@@ -100,12 +102,22 @@ class _LambdaSolid(object):
         if not self.name:
             self.name = fn.__name__
 
-        _validate_compute_fn(self.name, fn, self.input_defs)
-        compute_fn = _create_lambda_solid_transform_wrapper(fn, self.input_defs, self.output_def)
+        input_defs = (
+            self.input_defs
+            if self.input_defs is not None
+            else infer_input_definitions_for_lambda_solid(fn)
+        )
+
+        output_def = (
+            self.output_def if self.output_def is not None else infer_output_definitions(fn)[0]
+        )
+
+        _validate_compute_fn(self.name, fn, input_defs)
+        compute_fn = _create_lambda_solid_transform_wrapper(fn, input_defs, output_def)
         return SolidDefinition(
             name=self.name,
-            inputs=self.input_defs,
-            outputs=[self.output_def],
+            inputs=input_defs,
+            outputs=[output_def],
             compute_fn=compute_fn,
             description=self.description,
         )
@@ -122,9 +134,12 @@ class _Solid(object):
         config_field=None,
     ):
         self.name = check.opt_str_param(name, 'name')
-        self.input_defs = check.opt_list_param(inputs, 'inputs', InputDefinition)
-        outputs = outputs or ([OutputDefinition()] if outputs is None else [])
-        self.outputs = check.list_param(outputs, 'outputs', OutputDefinition)
+        self.input_defs = (
+            None if inputs is None else check.list_param(inputs, 'inputs', InputDefinition)
+        )
+        self.output_defs = (
+            None if outputs is None else check.list_param(outputs, 'outputs', OutputDefinition)
+        )
         self.description = check.opt_str_param(description, 'description')
 
         # resources will be checked within SolidDefinition
@@ -139,17 +154,70 @@ class _Solid(object):
         if not self.name:
             self.name = fn.__name__
 
-        _validate_compute_fn(self.name, fn, self.input_defs, [('context',)])
-        compute_fn = _create_solid_transform_wrapper(fn, self.input_defs, self.outputs)
+        input_defs = (
+            self.input_defs
+            if self.input_defs is not None
+            else infer_input_definitions_for_solid(self.name, fn)
+        )
+
+        output_defs = (
+            self.output_defs if self.output_defs is not None else infer_output_definitions(fn)
+        )
+
+        _validate_compute_fn(self.name, fn, input_defs, [('context',)])
+        compute_fn = _create_solid_transform_wrapper(fn, input_defs, output_defs)
         return SolidDefinition(
             name=self.name,
-            inputs=self.input_defs,
-            outputs=self.outputs,
+            inputs=input_defs,
+            outputs=output_defs,
             compute_fn=compute_fn,
             config_field=self.config_field,
             description=self.description,
             resources=self.resources,
         )
+
+
+def infer_output_definitions(fn):
+    signature = funcsigs.signature(fn)
+    return [
+        OutputDefinition()
+        if signature.return_annotation is funcsigs.Signature.empty
+        else OutputDefinition(signature.return_annotation)
+    ]
+
+
+def infer_input_definitions_for_lambda_solid(fn):
+    signature = funcsigs.signature(fn)
+    params = list(signature.parameters.values())
+    return [
+        InputDefinition(
+            param.name,
+            param.annotation if param.annotation is not inspect.Parameter.empty else None,
+        )
+        for param in params
+    ]
+
+
+def infer_input_definitions_for_solid(name, fn):
+    signature = funcsigs.signature(fn)
+    params = list(signature.parameters.values())
+    if len(params) == 0:
+        raise DagsterInvalidDefinitionError(
+            'Must provide at least one parameter for solid {}'.format(name)
+        )
+
+    if params[0].name not in {'context', '_context', '_'}:
+        raise DagsterInvalidDefinitionError(
+            'First parameter for solid {} must be "context", "_context", or "_"'.format(name)
+        )
+
+    return [
+        InputDefinition(
+            param.name,
+            param.annotation if param.annotation is not inspect.Parameter.empty else None,
+        )
+        for param in params[1:]
+    ]
 
 
 def lambda_solid(name=None, inputs=None, output=None, description=None):
@@ -180,8 +248,6 @@ def lambda_solid(name=None, inputs=None, output=None, description=None):
                 return foo
 
     '''
-    output = output or OutputDefinition()
-
     if callable(name):
         check.invariant(inputs is None)
         check.invariant(description is None)
